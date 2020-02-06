@@ -57,9 +57,4 @@ int LIFO_Remove(LIFO *lifo)
 	}
 	return ExtractData;
 }
-void main(void)
-{
-
-}
-
 

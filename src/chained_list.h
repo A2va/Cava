@@ -218,7 +218,7 @@ void CL_SwapElement(Element *swap1, Element *swap2);
 *	  Description															*
 *     Concat the second list into the first									*
 ****************************************************************************/
-CL_ConcatList(List *list1, List *list2);
+void CL_ConcatList(List *list1, List *list2);
 /****************************************************************************
 * Function CL_InitList()													*
 *		Prototype	:	  List *CL_InitList();								*
