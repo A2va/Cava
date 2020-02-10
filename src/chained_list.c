@@ -152,6 +152,34 @@ void CL_Delete(List *list,Element *element)
 	list->CountElement--;
 }
 /****************************************************************************
+* Function CL_DeleteList()													*
+*		Prototype	:	  void CL_DeleteList(List *list);					*
+*																			*
+*		Input Parameter: List								            	*
+*																			*
+*	  Description															*
+*     Delete a list														    *
+****************************************************************************/
+void CL_DeleteList(List *list)
+{
+	int i=0;
+	Element *deleteElement = list->first;
+
+	if (list == NULL)
+	{
+		exit(EXIT_FAILURE);
+	}
+	for (i = 0; i < list->CountElement - 1; i++)
+	{
+		deleteElement = list->last;
+		list->last = list->last->previous;
+		list->last->next = NULL;
+		free(deleteElement);
+	}
+	free(list->first);
+	free(list);
+}
+/****************************************************************************
 * Function CL_SelectElement()												*
 *		Prototype	:	  void Select_Element(List *list,int Number);		*
 *		Input Parameter: List, Element						            	*
@@ -231,6 +259,26 @@ void CL_ConcatList(List *list1, List *list2)
 	list1->last->next = list2->first;
 	list2->first->previous = list1->last;
 	list1->last = list2->first;
+
+}
+/****************************************************************************
+* Function CL_ConcatList()													*
+*		Prototype	:	  void CL_ConcatList(List *list1,List *list2);		*
+*		Input Parameter: List, Element						            	*
+*																			*
+*	  Description															*
+*     Trunk a list															*
+****************************************************************************/
+List *CL_TruncList(List *list, Element *current)
+{
+	List *newList = malloc(sizeof(*list));
+	current->previous->next = NULL;
+	newList->last = list->last;
+	list->last = current->previous;
+	current->previous = NULL;
+	newList->first = current;
+
+	return newList;
 }
 /****************************************************************************
 * Function CL_InitList()													*
@@ -284,6 +332,5 @@ void Example_CL(void)
 	CL_ConcatList(exampleList, exampleList2);
 
 }
-
 
 

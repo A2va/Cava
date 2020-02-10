@@ -155,6 +155,16 @@ After																		*
 ****************************************************************************/
 void CL_Delete(List *list,Element *current);
 /****************************************************************************
+* Function CL_DeleteList()													*
+*		Prototype	:	  void CL_DeleteList(List *list);					*
+*																			*
+*		Input Parameter: List								            	*
+*																			*
+*	  Description															*
+*     Delete a list														    *
+****************************************************************************/
+void CL_DeleteList(List *list);
+/****************************************************************************
 * Function CL_SelectElement()												*
 *		Prototype	:	  Element *CL_SelectElement(List *list,int Number);	*
 *		Input Parameter: List, Element						            	*
@@ -219,6 +229,15 @@ void CL_SwapElement(Element *swap1, Element *swap2);
 *     Concat the second list into the first									*
 ****************************************************************************/
 void CL_ConcatList(List *list1, List *list2);
+/****************************************************************************
+* Function CL_ConcatList()													*
+*		Prototype	:	  void CL_ConcatList(List *list1,List *list2);		*
+*		Input Parameter: List, Element						            	*
+*																			*
+*	  Description															*
+*     Trunk a list															*
+****************************************************************************/
+List *CL_TruncList(List *list, Element *current);
 /****************************************************************************
 * Function CL_InitList()													*
 *		Prototype	:	  List *CL_InitList();								*
