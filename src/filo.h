@@ -1,7 +1,7 @@
 #ifndef FILO_H
 #define FILO_H
 /****************************************************************************
-* Cava Library: LIFO															*
+* Cava Library: LIFO														*
 *                                                                         	*
 * Auteur    : A2va					                                        *
 * Date      : 06.02.2020					                                *
@@ -25,8 +25,8 @@ struct FILO
 /****************************************************************************
 * Function FILO_Add()														*
 *		Prototype	:	  void FILO_Add(FILO *filo,int number);				*
-*																			*
-*		Input Parameter: FILO								            	*
+*		Input Parameter: FILO,Number								        *
+*		Output Parameter: None										        *
 *																			*
 *	  Description															*
 *     Add an element to FILO											    *
@@ -35,8 +35,8 @@ void FILO_Add(FILO *filo, int number);
 /****************************************************************************
 * Function FILO_Add()														*
 *		Prototype	:	  void FILO_Add(FILO *filo,int number);				*
-*																			*
 *		Input Parameter: FILO								            	*
+*		Output Parameter: Data Out									        *
 *																			*
 *	  Description															*
 *     Remove an element to FILO											    *

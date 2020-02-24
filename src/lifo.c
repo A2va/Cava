@@ -15,8 +15,8 @@
 /****************************************************************************
 * Function LIFO_Add()														*
 *		Prototype	:	  void LIFO_Add(LIFO *lifo,int number);				*
-*																			*
-*		Input Parameter: LIFO								            	*
+*		Input Parameter: LIFO,Number								        *
+*		Output Parameter: None										        *
 *																			*
 *	  Description															*
 *     Add an element to LIFO											    *
@@ -35,8 +35,8 @@ void LIFO_Add(LIFO *lifo,int number)
 /****************************************************************************
 * Function LIFO_Remove()													*
 *		Prototype	:	  void LIFO_Remove(LIFO *lifo);						*
-*																			*
-*		Input Parameter: LIFO								            	*
+*		Input Parameter: LIFO												*
+*		Output Parameter: Data Out										    *
 *																			*
 *	  Description															*
 *     Remove the first elment of LIFO									    *

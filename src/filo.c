@@ -16,7 +16,8 @@
 * Function FILO_Add()														*
 *		Prototype	:	  void FILO_Add(FILO *filo,int number);				*
 *																			*
-*		Input Parameter: FILO								            	*
+*		Input Parameter: FILO,Number								        *
+*		Output Parameter: None										        *
 *																			*
 *	  Description															*
 *     Add an element to FILO											    *
@@ -50,6 +51,7 @@ void FILO_Add(FILO *filo, int number)
 *		Prototype	:	  void FILO_Add(FILO *filo,int number);				*
 *																			*
 *		Input Parameter: FILO								            	*
+*		Output Parameter: Data Out									        *
 *																			*
 *	  Description															*
 *     Remove an element to FILO											    *
