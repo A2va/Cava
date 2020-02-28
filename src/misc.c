@@ -27,7 +27,7 @@
 ****************************************************************************/
 unsigned char *intTostr(int Number)
 {
-	int NumberFrame = ceil(log10(fabs(Number)));//Calculation of the number of boxes in the table
+	int NumberFrame = log10(fabs(Number))+1;//Calculation of the number of boxes in the table
 	int Modulo =pow(10,NumberFrame);//Modulo for loop
 	int i = 0;
 	unsigned char *String = malloc(sizeof(*String) * (NumberFrame + 1));//String Declaration
