@@ -163,7 +163,7 @@ void CL_Delete(List *list,Element *element)
 ****************************************************************************/
 void CL_DeleteList(List *list)
 {
-	int i=0;
+	unsigned int i=0;
 	Element *deleteElement = list->first;
 
 	if (list == NULL)
@@ -195,7 +195,7 @@ Element *CL_SelectElement(List *list, int Number)
 	{
 		exit(EXIT_FAILURE);
 	}
-	int i;
+	unsigned int i;
 	Element *element = list->first;
 	if (Number < list->CountElement)
 	{
