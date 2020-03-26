@@ -1,26 +1,26 @@
 /****************************************************************************
-* Cava Library: FILO														*
-*                                                                         	*
-* Auteur    : A2va					                                        *
-* Date      : 06.02.2020					                                *
-*																			*
+* Cava Library: FILO														
+*                                                                         	
+* Auteur    : A2va					                                        
+* Date      : 06.02.2020					                                
+*																			
 ****************************************************************************/
 /****************************************************************************
-* DESCRIPTION																*
-* 	  FILO								                        			*
+* DESCRIPTION																
+* 	  FILO								                        			
 ****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include "filo.h"
 /****************************************************************************
-* Function FILO_Add()														*
-*		Prototype	:	  void FILO_Add(FILO *filo,int number);				*
-*																			*
-*		Input Parameter: FILO,Number								        *
-*		Output Parameter: None										        *
-*																			*
-*	  Description															*
-*     Add an element to FILO											    *
+* Function FILO_Add()														
+*		Prototype	:	  void FILO_Add(FILO *filo,int number);				
+*																		
+*		Input Parameter: FILO,Number								        
+*		Output Parameter: None										        
+*																			
+*	  Description															
+*     Add an element to FILO											    
 ****************************************************************************/
 void FILO_Add(FILO *filo, int number)
 {
@@ -47,14 +47,14 @@ void FILO_Add(FILO *filo, int number)
 	}
 }
 /****************************************************************************
-* Function FILO_Add()														*
-*		Prototype	:	  void FILO_Add(FILO *filo,int number);				*
-*																			*
-*		Input Parameter: FILO								            	*
-*		Output Parameter: Data Out									        *
-*																			*
-*	  Description															*
-*     Remove an element to FILO											    *
+* Function FILO_Add()														
+*		Prototype	:	  void FILO_Add(FILO *filo,int number);				
+*																			
+*		Input Parameter: FILO								            	
+*		Output Parameter: Data Out									        
+*																			
+*	  Description															
+*     Remove an element to FILO											    
 ****************************************************************************/
 int FILO_Remove(FILO *filo)
 {
