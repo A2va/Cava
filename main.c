@@ -47,9 +47,6 @@ void printLCD()
 int main()
 {
     printf("\n");
-    SetPixel(0,0,1);
-    SetPixel(0,1,1);
-    DrawCircle(10,10,5,1);
     printLCD();
     printf("\nEnd");
     return 0;
