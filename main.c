@@ -48,7 +48,7 @@ void printLCD()
 int main()
 {
     printf("\n");
-    str_font str_font10x12=initFont(&font10x12);
+    str_font str_font10x12=initFont(font10x12);
     printLCD();
     printf("\nEnd");
     return 0;

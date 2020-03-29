@@ -260,7 +260,7 @@ str_font initFont(unsigned char *fontData)
   font.numChar=*(fontData + 5);
   font.firstChar=fontData + font.numChar + 6;
   font.charWidth= fontData +7;
-
+  font.numBytesinChar=(font.fontWidth /8)+1;
   return font;
 
 }

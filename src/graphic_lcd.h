@@ -24,6 +24,7 @@ struct str_font
     unsigned char *firstChar;
     unsigned char *charWidth;
     unsigned char numChar;
+    unsigned char numBytesinChar;
     unsigned char fontWidth;
     unsigned char fontHeight;
 };
