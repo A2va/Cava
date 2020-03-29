@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "src/graphic_lcd.h"
+#include "src/font10x12.h"
 unsigned char Buffer_Print[LCD_SIZEX*LCD_PAGE][8];
 void printLCD()
 {
@@ -47,6 +48,7 @@ void printLCD()
 int main()
 {
     printf("\n");
+    str_font str_font10x12=initFont(&font10x12);
     printLCD();
     printf("\nEnd");
     return 0;

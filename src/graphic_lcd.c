@@ -251,3 +251,16 @@ void ClearBuffer()
 {
   memset(&Buffer, 0, LCD_SIZEX*LCD_PAGE);
 }
+str_font initFont(unsigned char *fontData)
+{
+  str_font font;
+  
+  font.fontWidth=*(fontData+2);
+  font.fontHeight=*(fontData +3);
+  font.numChar=*(fontData + 5);
+  font.firstChar=fontData + font.numChar + 6;
+  font.charWidth= fontData +7;
+
+  return font;
+
+}

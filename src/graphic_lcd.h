@@ -18,6 +18,16 @@
 #define LCD_SIZEPAGE 8
 #define LCD_PAGE (LCD_SIZEY /LCD_SIZEPAGE)
 
+typedef struct str_font str_font;
+struct str_font
+{
+    unsigned char *firstChar;
+    unsigned char *charWidth;
+    unsigned char numChar;
+    unsigned char fontWidth;
+    unsigned char fontHeight;
+};
+
 unsigned char Buffer[LCD_SIZEX*LCD_PAGE];
 /****************************************************************************
 * Function SetPixel()														
@@ -85,4 +95,5 @@ void FillRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h
 *	 Affiche un ligne                                        		        
 ****************************************************************************/
 void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char color);
+str_font initFont();
 #endif
