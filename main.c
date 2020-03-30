@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "src/graphic_lcd.h"
 #include "src/font10x12.h"
+#include "src/font20x18.h"
 unsigned char Buffer_Print[LCD_SIZEX*LCD_PAGE][8];
 void printLCD()
 {
@@ -44,12 +45,17 @@ void printLCD()
         }
     }
     
+    printf("\nEnd");
 }
 int main()
 {
     printf("\n");
-    str_font str_font10x12=initFont(font10x12);
+    str_font str_font10x12=InitFont(font10x12);
+    str_font str_font20x18 =InitFont(font20x18);
+    DrawChar(0,0,'%',str_font20x18);
+
+
     printLCD();
-    printf("\nEnd");
+    printf("\n-------------------------------------------------------");
     return 0;
 }

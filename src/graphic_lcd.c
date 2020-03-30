@@ -238,20 +238,71 @@ void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned cha
   }
 }
 /****************************************************************************
+* Fonction DrawChar()								                        
+* Prototype: void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font);								
+*																			
+*	  Input Parameter: x,y,charecter, font	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Draw character on buffer                              		        
+******************************************************************************/
+void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font)
+{
+  unsigned char *car=font.firstChar;
+  unsigned char i=0;
+  unsigned char WidthChar=*(font.charWidth+c-33);
+  unsigned char Page=y/LCD_SIZEPAGE;
+
+  for (i = 0; i < c-33; i++)
+  {
+    car=(*(font.charWidth+i)*font.numBytesinChar)+car;
+  }
+
+
+  for (i = 0; i < font.numBytesinChar; i++)
+  {
+    for ( x = 0; x < WidthChar; x++)
+    {
+      if ((i==font.numBytesinChar-1)&&(font.fontWidth%8)>0)
+      {
+        Buffer[x+ Page*LCD_SIZEX]=(*car>>4)&0x0F;
+      }
+      else
+      {
+        Buffer[x+ Page*LCD_SIZEX]=*car;
+      }
+      car++;
+    }
+    Page++;
+  }
+  
+}
+/****************************************************************************
 * Fonction ClearBuffer()								                        
 * Prototype: void ClearBuffer(voir en dessous);								
 *																			
-*	  Paramétres d'entrées:	
-*	  Paramétres de sorties:	None										
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Fill a rectangle on buffer                               		        
+*	 Clear buffer                              		        
 ******************************************************************************/
 void ClearBuffer() 
 {
   memset(&Buffer, 0, LCD_SIZEX*LCD_PAGE);
 }
-str_font initFont(unsigned char *fontData)
+/****************************************************************************
+* Fonction InitFont()								                        
+* Prototype: str_font InitFont();								
+*																			
+*	  Input Parameter: None	
+*	  Output Parameter:	font										
+*															
+*	  Description															
+*	 Init a font                            		        
+******************************************************************************/
+str_font InitFont(unsigned char *fontData)
 {
   str_font font;
   

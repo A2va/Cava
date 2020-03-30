@@ -96,5 +96,37 @@ void FillRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h
 *	 Affiche un ligne                                        		        
 ****************************************************************************/
 void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char color);
-str_font initFont();
+/****************************************************************************
+* Fonction DrawChar()								                        
+* Prototype: void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font);								
+*																			
+*	  Input Parameter: x,y,charecter, font	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Draw character on buffer                              		        
+******************************************************************************/
+void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font);
+/****************************************************************************
+* Fonction ClearBuffer()								                        
+* Prototype: void ClearBuffer(voir en dessous);								
+*																			
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Clear buffer                              		        
+******************************************************************************/
+void ClearBuffer();
+/****************************************************************************
+* Fonction InitFont()								                        
+* Prototype: str_font InitFont();								
+*																			
+*	  Input Parameter: None	
+*	  Output Parameter:	font										
+*															
+*	  Description															
+*	 Init a font                            		        
+******************************************************************************/
+str_font InitFont(unsigned char *fontData);
 #endif
