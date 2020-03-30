@@ -23,7 +23,8 @@
 *	  Description															
 *     Set a pixel on buffer											    
 ****************************************************************************/
-void SetPixel(unsigned char x, unsigned char  y, unsigned char  color)
+void 
+SetPixel(unsigned char x, unsigned char  y, unsigned char  color)
 {
 	 if ((x >= LCD_SIZEX) || (y >= LCD_SIZEY))
     return;
@@ -239,7 +240,7 @@ void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned cha
 }
 /****************************************************************************
 * Fonction DrawChar()								                        
-* Prototype: void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font);								
+* Prototype: void DrawChar(unsigned char x,unsigned char y,unsigned char *c,str_font font);							
 *																			
 *	  Input Parameter: x,y,charecter, font	
 *	  Output Parameter:	None										
@@ -251,9 +252,9 @@ void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font)
 {
   unsigned char *car=font.firstChar;
   unsigned char i=0;
+  unsigned char j=0;
   unsigned char WidthChar=*(font.charWidth+c-33);
   unsigned char Page=y/LCD_SIZEPAGE;
-
   for (i = 0; i < c-33; i++)
   {
     car=(*(font.charWidth+i)*font.numBytesinChar)+car;
@@ -262,21 +263,47 @@ void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font)
 
   for (i = 0; i < font.numBytesinChar; i++)
   {
-    for ( x = 0; x < WidthChar; x++)
+    for (j=0; j < WidthChar; j++)
     {
       if ((i==font.numBytesinChar-1)&&(font.fontWidth%8)>0)
       {
-        Buffer[x+ Page*LCD_SIZEX]=(*car>>4)&0x0F;
+        Buffer[x+ j+ (Page*LCD_SIZEX)]=(*car>>4)&0x0F;
       }
       else
       {
-        Buffer[x+ Page*LCD_SIZEX]=*car;
+        Buffer[x+ j+ (Page*LCD_SIZEX)]=*car;
       }
       car++;
     }
     Page++;
   }
   
+}
+/****************************************************************************
+* Fonction DrawString()								                        
+* Prototype: void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font);							
+*																			
+*	  Input Parameter: x,y,charecter, font	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Draw string on buffer                              		        
+******************************************************************************/
+void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font) 
+{
+  while (*c != '\0') 
+  {
+    DrawChar(x,y,*c,font);
+    x += *(font.charWidth+(*c)-33)+2;
+    c++;
+    if (x  >= LCD_SIZEX) {
+      x = 0;   
+      y++;
+    }
+    if (y >= (LCD_SIZEY/8))
+      return;     
+  }
+
 }
 /****************************************************************************
 * Fonction ClearBuffer()								                        

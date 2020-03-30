@@ -52,8 +52,8 @@ int main()
     printf("\n");
     str_font str_font10x12=InitFont(font10x12);
     str_font str_font20x18 =InitFont(font20x18);
-    DrawChar(0,0,'%',str_font20x18);
-
+    //DrawChar(10,0,'%',str_font10x12);
+    DrawString(0,0,"Hello",str_font10x12);
 
     printLCD();
     printf("\n-------------------------------------------------------");
