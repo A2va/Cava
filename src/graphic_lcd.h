@@ -106,7 +106,7 @@ void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned cha
 *	  Description															
 *	 Draw character on buffer                              		        
 ******************************************************************************/
-void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font);
+void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char *c);
 /****************************************************************************
 * Fonction DrawString()								                        
 * Prototype: void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font);							
@@ -117,7 +117,7 @@ void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font);
 *	  Description															
 *	 Draw string on buffer                              		        
 ******************************************************************************/
-void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font);
+void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *c);
 /****************************************************************************
 * Fonction ClearBuffer()								                        
 * Prototype: void ClearBuffer(voir en dessous);								

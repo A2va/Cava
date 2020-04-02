@@ -248,14 +248,14 @@ void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned cha
 *	  Description															
 *	 Draw character on buffer                              		        
 ******************************************************************************/
-void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font)
+void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char *c)
 {
   unsigned char *car=font.firstChar;
   unsigned char i=0;
   unsigned char j=0;
-  unsigned char WidthChar=*(font.charWidth+c-33);
+  unsigned char WidthChar=*(font.charWidth+(*c)-33);
   unsigned char Page=y/LCD_SIZEPAGE;
-  for (i = 0; i < c-33; i++)
+  for (i = 0; i < (*c)-33; i++)
   {
     car=(*(font.charWidth+i)*font.numBytesinChar)+car;
   }
@@ -289,11 +289,11 @@ void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font)
 *	  Description															
 *	 Draw string on buffer                              		        
 ******************************************************************************/
-void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font) 
+void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *c) 
 {
   while (*c != '\0') 
   {
-    DrawChar(x,y,*c,font);
+    DrawChar(x,y,font,c);
     x += *(font.charWidth+(*c)-33)+2;
     c++;
     if (x  >= LCD_SIZEX) {
