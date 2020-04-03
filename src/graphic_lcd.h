@@ -12,6 +12,8 @@
 #ifndef GRAPHIC_LCD_H
 #define GRAPHIC_LCD_H
 
+#include <stdarg.h>
+
 #define swap(a, b) { unsigned char t = a; a = b; b = t; }
 #define LCD_SIZEX 128
 #define LCD_SIZEY 64
@@ -118,6 +120,61 @@ void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char *c);
 *	 Draw string on buffer                              		        
 ******************************************************************************/
 void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *c);
+/****************************************************************************
+* Fonction printfLCD()								                        
+* Prototype: void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...);								
+*																			
+*	  Input Parameter: x,y,font,String,variable	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Equivalent printf for lcd                           		        
+******************************************************************************/
+void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...);
+/****************************************************************************
+* Fonction parser()								                        
+* Prototype: parser(unsigned char x,unsigned char y,str_font font, char *bp, const char *fmt, va_list ap);								
+*																			
+*	  Input Parameter: x,y,font,bp,String,ap	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Equivalent printf for lcd                           		        
+******************************************************************************/
+void parser(unsigned char x,unsigned char y,str_font font, char *bp, const char *fmt, va_list ap);
+/****************************************************************************
+* Fonction outd()								                        
+* Prototype: static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *bp);								
+*																			
+*	  Input Parameter: x,y,font,number,bp
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Converts a number into a string in the base 10                         		        
+******************************************************************************/
+static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *bp);
+/****************************************************************************
+* Fonction outu()								                        
+* Prototype: static char *outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp);							
+*																			
+*	  Input Parameter: x,y,font,number,base,bp
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Converts a number into a string in the desired base                          		        
+******************************************************************************/
+static char *outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp);
+/****************************************************************************
+* Fonction outs()								                        
+* Prototype: static char *outs(unsigned char x,unsigned char y,str_font font,const char *str, char *bp);								
+*																			
+*	  Input Parameter: x,y,font,string,bp
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Converts a number into a string in the desired base                          		        
+******************************************************************************/
+static char *outs(unsigned char x,unsigned char y,str_font font,const char *str, char *bp);
 /****************************************************************************
 * Fonction ClearBuffer()								                        
 * Prototype: void ClearBuffer(voir en dessous);								

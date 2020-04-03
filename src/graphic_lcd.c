@@ -11,6 +11,7 @@
 ****************************************************************************/
 #include "graphic_lcd.h"
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 //https://github.com/adafruit/ST7565-LCD
 /****************************************************************************
@@ -341,4 +342,160 @@ str_font InitFont(unsigned char *fontData)
   font.numBytesinChar=(font.fontWidth /8)+1;
   return font;
 
+}
+/****************************************************************************
+* Fonction printfLCD()								                        
+* Prototype: void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...);								
+*																			
+*	  Input Parameter: x,y,font,String,variable	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Equivalent printf for lcd                           		        
+******************************************************************************/
+void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...) 
+{
+	va_list ap;
+
+	va_start(ap, fmt);
+	parser(x,y,font, NULL, fmt, ap);
+	va_end(ap);
+}
+/****************************************************************************
+* Fonction vfprint()								                        
+* Prototype: vfprint(unsigned char x,unsigned char y,str_font font, char *bp, const char *fmt, va_list ap);								
+*																			
+*	  Input Parameter: x,y,font,bp,String,ap	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Equivalent printf for lcd                           		        
+******************************************************************************/
+void parser(unsigned char x,unsigned char y,str_font font, char *bp, const char *fmt, va_list ap) 
+{
+  static char format[] = "%f";
+	char buf[128];
+    int n=0;
+	for (; *fmt; fmt++)
+  {
+      if (*fmt == '%')
+      {	
+        switch (*++fmt) 
+        {
+            case 'd': bp = outd(x,y,font,va_arg(ap, int), bp); break;
+            case 'D': bp = outd(x,y,font,va_arg(ap, long), bp); break;
+            case 'U': bp = outu(x,y,font,va_arg(ap, unsigned long), 10, bp); break;
+            case 'u': bp = outu(x,y,font,va_arg(ap, unsigned), 10, bp); break;
+            case 'o': bp = outu(x,y,font,va_arg(ap, unsigned), 8, bp); break;
+            case 'X': bp = outu(x,y,font,va_arg(ap, unsigned long), 16, bp); break;
+            case 'x': bp = outu(x,y,font,va_arg(ap, unsigned), 16,bp); break;
+            case 'f': 
+            case 'e':
+            case 'g': 
+            {
+                format[1] = *fmt;
+                sprintf(buf, format, va_arg(ap, double));
+                bp = outs(x,y,font,buf, bp);
+            }
+            case 'p': 
+            {
+              void *p = va_arg(ap, void *);
+              if (p)
+              {
+                  bp = outs(x,y,font,"0x", bp);
+                  x += *(font.charWidth+(*fmt)-33)+2;
+                  bp = outu(x,y,font,(unsigned long)p, 16,bp);
+              }
+
+            } 
+            break;
+            break;
+            case 's': 
+                  bp = outs(x,y,font,va_arg(ap, char *), bp); 
+            break;
+            case 'c': 
+                  DrawChar(x,y,font,va_arg(ap, char *)); 
+            break;
+              
+            default:  
+            break;
+        }
+      }
+      else
+      {
+          DrawChar(x,y,font,fmt);
+      }
+      x += *(font.charWidth+(*fmt)-33)+2;
+    }
+}
+/****************************************************************************
+* Fonction outd()								                        
+* Prototype: static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *bp);								
+*																			
+*	  Input Parameter: x,y,font,number,bp
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Converts a number into a string in the base 10                         		        
+******************************************************************************/
+static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *bp) 
+{
+	unsigned long m;
+	char buf[25], *s = buf + sizeof buf;
+
+	*--s = '\0';
+	if (n < 0)
+  {
+		m = -n;
+  }
+	else
+  {
+		m = n;
+  }
+	do
+  {
+		*--s = m%10 + '0';
+  }while ((m /= 10) != 0);
+	if (n < 0)
+  {
+		*--s = '-';
+  }
+	return outs(x,y,font,s,bp);
+}
+/****************************************************************************
+* Fonction outu()								                        
+* Prototype: static char *outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp);							
+*																			
+*	  Input Parameter: x,y,font,number,base,bp
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Converts a number into a string in the desired base                          		        
+******************************************************************************/
+static char *outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp) 
+{
+	char buf[25], *s = buf + sizeof buf;
+
+	*--s = '\0';
+	do
+  {
+		*--s = "0123456789abcdef"[n%base];
+  }while ((n /= base) != 0);
+
+	return outs(x,y,font,s,bp);
+}
+/****************************************************************************
+* Fonction outs()								                        
+* Prototype: static char *outs(unsigned char x,unsigned char y,str_font font,const char *str, char *bp);								
+*																			
+*	  Input Parameter: x,y,font,string,bp
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	 Converts a number into a string in the desired base                          		        
+******************************************************************************/
+static char *outs(unsigned char x,unsigned char y,str_font font,const char *str, char *bp) 
+{
+	DrawString(x,y,font,str);
+	return bp;
 }
