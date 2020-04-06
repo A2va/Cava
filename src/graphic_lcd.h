@@ -11,7 +11,6 @@
 ****************************************************************************/
 #ifndef GRAPHIC_LCD_H
 #define GRAPHIC_LCD_H
-
 #include <stdarg.h>
 
 #define swap(a, b) { unsigned char t = a; a = b; b = t; }
@@ -108,7 +107,7 @@ void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned cha
 *	  Description															
 *	 Draw character on buffer                              		        
 ******************************************************************************/
-void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char *c);
+void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char c);
 /****************************************************************************
 * Fonction DrawString()								                        
 * Prototype: void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font);							
@@ -152,7 +151,7 @@ void parser(unsigned char x,unsigned char y,str_font font, char *bp, const char 
 *	  Description															
 *	 Converts a number into a string in the base 10                         		        
 ******************************************************************************/
-static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *bp);
+void outd(unsigned char x ,unsigned char y,str_font font,long n);
 /****************************************************************************
 * Fonction outu()								                        
 * Prototype: static char *outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp);							
@@ -163,18 +162,7 @@ static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *b
 *	  Description															
 *	 Converts a number into a string in the desired base                          		        
 ******************************************************************************/
-static char *outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp);
-/****************************************************************************
-* Fonction outs()								                        
-* Prototype: static char *outs(unsigned char x,unsigned char y,str_font font,const char *str, char *bp);								
-*																			
-*	  Input Parameter: x,y,font,string,bp
-*	  Output Parameter:	None										
-*															
-*	  Description															
-*	 Converts a number into a string in the desired base                          		        
-******************************************************************************/
-static char *outs(unsigned char x,unsigned char y,str_font font,const char *str, char *bp);
+void outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base);
 /****************************************************************************
 * Fonction ClearBuffer()								                        
 * Prototype: void ClearBuffer(voir en dessous);								

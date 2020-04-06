@@ -243,20 +243,20 @@ void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned cha
 * Fonction DrawChar()								                        
 * Prototype: void DrawChar(unsigned char x,unsigned char y,unsigned char *c,str_font font);							
 *																			
-*	  Input Parameter: x,y,charecter, font	
+*	  Input Parameter: x,y,char, font	
 *	  Output Parameter:	None										
 *															
 *	  Description															
 *	 Draw character on buffer                              		        
 ******************************************************************************/
-void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char *c)
+void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char c)
 {
   unsigned char *car=font.firstChar;
   unsigned char i=0;
   unsigned char j=0;
-  unsigned char WidthChar=*(font.charWidth+(*c)-33);
+  unsigned char WidthChar=*(font.charWidth+c-33);
   unsigned char Page=y/LCD_SIZEPAGE;
-  for (i = 0; i < (*c)-33; i++)
+  for (i = 0; i < c-33; i++)
   {
     car=(*(font.charWidth+i)*font.numBytesinChar)+car;
   }
@@ -290,13 +290,13 @@ void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char *c)
 *	  Description															
 *	 Draw string on buffer                              		        
 ******************************************************************************/
-void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *c) 
+void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *s) 
 {
-  while (*c != '\0') 
+  while (*s != '\0') 
   {
-    DrawChar(x,y,font,c);
-    x += *(font.charWidth+(*c)-33)+2;
-    c++;
+    DrawChar(x,y,font,*s);
+    x += *(font.charWidth+(*s)-33)+2;
+    s++;
     if (x  >= LCD_SIZEX) {
       x = 0;   
       y++;
@@ -362,8 +362,8 @@ void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ..
 	va_end(ap);
 }
 /****************************************************************************
-* Fonction vfprint()								                        
-* Prototype: vfprint(unsigned char x,unsigned char y,str_font font, char *bp, const char *fmt, va_list ap);								
+* Fonction parser()								                        
+* Prototype: parser(unsigned char x,unsigned char y,str_font font, char *bp, const char *fmt, va_list ap);								
 *																			
 *	  Input Parameter: x,y,font,bp,String,ap	
 *	  Output Parameter:	None										
@@ -375,46 +375,42 @@ void parser(unsigned char x,unsigned char y,str_font font, char *bp, const char 
 {
   static char format[] = "%f";
 	char buf[128];
-    int n=0;
+  char n=0;
+  void *p;
 	for (; *fmt; fmt++)
   {
       if (*fmt == '%')
       {	
         switch (*++fmt) 
         {
-            case 'd': bp = outd(x,y,font,va_arg(ap, int), bp); break;
-            case 'D': bp = outd(x,y,font,va_arg(ap, long), bp); break;
-            case 'U': bp = outu(x,y,font,va_arg(ap, unsigned long), 10, bp); break;
-            case 'u': bp = outu(x,y,font,va_arg(ap, unsigned), 10, bp); break;
-            case 'o': bp = outu(x,y,font,va_arg(ap, unsigned), 8, bp); break;
-            case 'X': bp = outu(x,y,font,va_arg(ap, unsigned long), 16, bp); break;
-            case 'x': bp = outu(x,y,font,va_arg(ap, unsigned), 16,bp); break;
+            case 'd': outd(x,y,font,va_arg(ap, int)); break;
+            case 'D': outd(x,y,font,va_arg(ap, long)); break;
+            case 'U': outu(x,y,font,va_arg(ap, unsigned long), 10); break;
+            case 'u': outu(x,y,font,va_arg(ap, unsigned), 10); break;
+            case 'o': outu(x,y,font,va_arg(ap, unsigned), 8); break;
+            case 'X': outu(x,y,font,va_arg(ap, unsigned long), 16); break;
+            case 'x': outu(x,y,font,va_arg(ap, unsigned), 16); break;
             case 'f': 
             case 'e':
             case 'g': 
-            {
                 format[1] = *fmt;
                 sprintf(buf, format, va_arg(ap, double));
-                bp = outs(x,y,font,buf, bp);
-            }
+                DrawString(x,y,font,buf);
+            break;
             case 'p': 
-            {
-              void *p = va_arg(ap, void *);
+            
+              p = va_arg(ap, void *);
               if (p)
               {
-                  bp = outs(x,y,font,"0x", bp);
-                  x += *(font.charWidth+(*fmt)-33)+2;
-                  bp = outu(x,y,font,(unsigned long)p, 16,bp);
+                  outu(x,y,font,(unsigned long)p, 16);
               }
 
-            } 
-            break;
             break;
             case 's': 
-                  bp = outs(x,y,font,va_arg(ap, char *), bp); 
+                  DrawString(x,y,font,va_arg(ap, char *)); 
             break;
-            case 'c': 
-                  DrawChar(x,y,font,va_arg(ap, char *)); 
+            case 'c':
+                  DrawChar(x,y,font,va_arg(ap, int)); 
             break;
               
             default:  
@@ -423,7 +419,7 @@ void parser(unsigned char x,unsigned char y,str_font font, char *bp, const char 
       }
       else
       {
-          DrawChar(x,y,font,fmt);
+          DrawChar(x,y,font,*fmt);
       }
       x += *(font.charWidth+(*fmt)-33)+2;
     }
@@ -438,7 +434,7 @@ void parser(unsigned char x,unsigned char y,str_font font, char *bp, const char 
 *	  Description															
 *	 Converts a number into a string in the base 10                         		        
 ******************************************************************************/
-static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *bp) 
+void outd(unsigned char x ,unsigned char y,str_font font,long n) 
 {
 	unsigned long m;
 	char buf[25], *s = buf + sizeof buf;
@@ -460,7 +456,7 @@ static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *b
   {
 		*--s = '-';
   }
-	return outs(x,y,font,s,bp);
+  DrawString(x,y,font,s);
 }
 /****************************************************************************
 * Fonction outu()								                        
@@ -472,30 +468,15 @@ static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *b
 *	  Description															
 *	 Converts a number into a string in the desired base                          		        
 ******************************************************************************/
-static char *outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp) 
+void outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base) 
 {
 	char buf[25], *s = buf + sizeof buf;
 
 	*--s = '\0';
 	do
   {
-		*--s = "0123456789abcdef"[n%base];
+		*--s = "0123456789ABCDEF"[n%base];
   }while ((n /= base) != 0);
 
-	return outs(x,y,font,s,bp);
-}
-/****************************************************************************
-* Fonction outs()								                        
-* Prototype: static char *outs(unsigned char x,unsigned char y,str_font font,const char *str, char *bp);								
-*																			
-*	  Input Parameter: x,y,font,string,bp
-*	  Output Parameter:	None										
-*															
-*	  Description															
-*	 Converts a number into a string in the desired base                          		        
-******************************************************************************/
-static char *outs(unsigned char x,unsigned char y,str_font font,const char *str, char *bp) 
-{
-	DrawString(x,y,font,str);
-	return bp;
+   DrawString(x,y,font,s);
 }
