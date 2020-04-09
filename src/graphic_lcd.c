@@ -13,7 +13,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-//https://github.com/adafruit/ST7565-LCD
+
 /****************************************************************************
 * Function SetPixel()														
 *		Input Parameter: x,y,color(0,1)								            	

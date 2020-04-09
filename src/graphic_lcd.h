@@ -12,25 +12,60 @@
                     as the sending functions are modified.   
 *    /!\ Some functions have the possibility to be modified to adapt to /!\
 *                             the lcd driver                        			
+* Note: 1. The parser system for printfLCD come from this 
+        repository https://github.com/drh/lcc
+        2. The function SetPixel,Circle and Rect come from this repository
+            https://github.com/adafruit/ST7565-LCD
 ****************************************************************************/
 #ifndef GRAPHIC_LCD_H
 #define GRAPHIC_LCD_H
 #include <stdarg.h>
-//Swap
-#define swap(a, b) { unsigned char t = a; a = b; b = t; }
-
 /****************************************************************************
-* LCD SIZE DEFINITION 																                       			
+* LCD SIZE DEFINITION 	    /!\ You can modify this /!\															                       			
 ****************************************************************************/
 #define LCD_SIZEX 128
 #define LCD_SIZEY 64
 #define LCD_SIZEPAGE 8
-
-
+/****************************************************************************
+* LCD COMMAND DEFINITION 	/!\ You can modify this /!\															                       			
+****************************************************************************/
+#define CMD_DISPLAY_OFF   0xAE
+#define CMD_DISPLAY_ON    0xAF
+#define CMD_SET_DISP_START_LINE  0x40
+#define CMD_SET_PAGE  0xB0
+#define CMD_SET_COLUMN_UPPER  0x10
+#define CMD_SET_COLUMN_LOWER  0x00
+#define CMD_SET_ADC_NORMAL  0xA0
+#define CMD_SET_ADC_REVERSE 0xA1
+#define CMD_SET_DISP_NORMAL 0xA6
+#define CMD_SET_DISP_REVERSE 0xA7
+#define CMD_SET_ALLPTS_NORMAL 0xA4
+#define CMD_SET_ALLPTS_ON  0xA5
+#define CMD_SET_BIAS_9 0xA2 
+#define CMD_SET_BIAS_7 0xA3
+#define CMD_RMW  0xE0
+#define CMD_RMW_CLEAR 0xEE
+#define CMD_INTERNAL_RESET  0xE2
+#define CMD_SET_COM_NORMAL  0xC0
+#define CMD_SET_COM_REVERSE  0xC8
+#define CMD_SET_POWER_CONTROL  0x28
+#define CMD_SET_RESISTOR_RATIO  0x20
+#define CMD_SET_VOLUME_FIRST  0x81
+#define CMD_SET_VOLUME_SECOND  0
+#define CMD_SET_STATIC_OFF  0xAC
+#define CMD_SET_STATIC_ON  0xAD
+#define CMD_SET_STATIC_REG  0x0
+#define CMD_SET_BOOSTER_FIRST  0xF8
+#define CMD_SET_BOOSTER_234  0
+#define CMD_SET_BOOSTER_5  1
+#define CMD_SET_BOOSTER_6  3
+#define CMD_NOP  0xE3
+#define CMD_TEST  0xF0
 /****************************************************************************
 * INZERNAL DEFINITION  															                       			
 ****************************************************************************/
 #define LCD_PAGE (LCD_SIZEY /LCD_SIZEPAGE)
+#define swap(a, b) { unsigned char t = a; a = b; b = t; }
 /****************************************************************************
 * FONT DEFINITION 														                       			
 ****************************************************************************/
