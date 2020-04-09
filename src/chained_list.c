@@ -15,15 +15,13 @@
 #include "chained_list.h"
 
 /****************************************************************************
-* Function CL_InsertFirst()													
-*		Prototype	:	  void CL_InsertFirst(List *list);					
-*																			
-*		Input Parameter: List								            	
+* Function CL_InsertFirst()																
+*		Input Parameter: List *								            	
 *		Output Parameter: None								            	
 *																			
-*	  Description															
-*     Insert an element at the beginning of the list					    
-****************************************************************************/
+*	  	Description															
+*     		Insert an element at the beginning of the list					    
+*****************************************************************************/
 void CL_InsertFirst(List *list)
 {
 	Element *newElement = malloc(sizeof(*newElement));
@@ -39,14 +37,13 @@ void CL_InsertFirst(List *list)
 	list->CountElement++;
 }
 /****************************************************************************
-* Function CL_InsertLast()													
-*		Prototype	:	  void CL_InsertLast(List *list);					
-*		Input Parameter: List								            	
+* Function CL_InsertLast()																	
+*		Input Parameter: List *								            	
 *		Output Parameter: None								            	
 *																			
-*	  Description															
-*     Insert an element at the end of the list						        
-****************************************************************************/
+*	  	Description															
+*     		Insert an element at the end of the list						        
+*****************************************************************************/
 void CL_InsertLast(List *list)
 {
 	Element *newElement = malloc(sizeof(*newElement));
@@ -62,14 +59,13 @@ void CL_InsertLast(List *list)
 	list->CountElement++;
 }
 /****************************************************************************
-* Function CL_Insert()														
-*		Prototype	:	  void CL_Insert(List *list,Element *current);		
-*		Input Parameter: List, Element						            	
+* Function CL_Insert()																
+*		Input Parameter: List *, Element *					            	
 *		Output Parameter: None								            	
 *																			
-*	  Description															
-*     Insert an element after the selected element					        
-****************************************************************************/
+*	  	Description															
+*     		Insert an element after the selected element						    
+*****************************************************************************/
 void CL_Insert(List *list, Element *current)
 {
 	Element *newElement = malloc(sizeof(*newElement));
@@ -88,14 +84,13 @@ void CL_Insert(List *list, Element *current)
 	}
 }
 /****************************************************************************
-* Function CL_DeleteFirst()													
-*		Prototype	:	  void CL_DeleteFirst(List *list);					
-*		Input Parameter: List								            	
+* Function CL_DeleteFirst()																
+*		Input Parameter: List *								            	
 *		Output Parameter: None								            	
 *																			
-*	  Description															
-*     Delete first element												    
-****************************************************************************/
+*	  	Description															
+*     		Delete first element												    
+*****************************************************************************/
 void CL_DeleteFirst(List *list)
 {
 	if (list == NULL)
@@ -111,14 +106,13 @@ void CL_DeleteFirst(List *list)
 
 }
 /****************************************************************************
-* Function CL_DeleteLast()													
-*		Prototype	:	  void CL_DeleteLast(List *list);					
-*		Input Parameter: List								            	
+* Function CL_DeleteLast()																	
+*		Input Parameter: List *								            	
 *		Output Parameter: None								            	
 *																			
-*	  Description															
-*     Delete last element												    
-****************************************************************************/
+*	  	Description															
+*     		Insert an element at the beginning of the list					    
+*****************************************************************************/
 void CL_DeleteLast(List *list)
 {
 	if (list == NULL)
@@ -134,14 +128,13 @@ void CL_DeleteLast(List *list)
 
 }
 /****************************************************************************
-* Function CL_DeleteLast()													
-*		Prototype	:	  void CL_DeleteLast(List *list);					
-*		Input Parameter: List,Element								         
+* Function CL_Delete()															
+*		Input Parameter: List *, Element *						            	
 *		Output Parameter: None								            	
 *																			
-*	  Description															
-*     Delete an element													    
-****************************************************************************/
+*	  	Description															
+*     		Delete the selected element										    
+*****************************************************************************/
 void CL_Delete(List *list,Element *element)
 {
 	if (list==NULL||element==NULL)
@@ -154,12 +147,12 @@ void CL_Delete(List *list,Element *element)
 	list->CountElement--;
 }
 /****************************************************************************
-* Function CL_DeleteList()													
-*		Prototype	:	  void CL_DeleteList(List *list);					
-*		Input Parameter: List								            	
+* Function CL_DeleteList()																																
+*		Input Parameter: List *								            	
 *		Output Parameter: None								            	
-*	  Description															
-*     Delete a list														    
+*																		
+*	  	Description															
+*     		Delete a list														    
 ****************************************************************************/
 void CL_DeleteList(List *list)
 {
@@ -182,13 +175,11 @@ void CL_DeleteList(List *list)
 }
 /****************************************************************************
 * Function CL_SelectElement()												
-*		Prototype	:	  void Select_Element(List *list,int Number);		
-*		Input Parameter: List, Number						            	
-*		Output Parameter: Element								            
+*		Input Parameter: List * , Element *						            	
 *																			
-*	  Description															
-*     Select an element														
-****************************************************************************/
+*	  	Description															
+*			Select an element													
+*****************************************************************************/
 Element *CL_SelectElement(List *list, int Number)
 {
 	if (list==NULL)
@@ -208,13 +199,12 @@ Element *CL_SelectElement(List *list, int Number)
 }
 /****************************************************************************
 * Function CL_MoveElement()													
-*	Prototype	:void CL_MoveElement(Element *moveElement,Element *current);
-*		Input Parameter: List, Element						            	
+*		Input Parameter: Element * , Element *									
 *		Output Parameter: None								            	
 *																			
-*	  Description															
-*     Move an element														
-****************************************************************************/
+*	  	Description															
+*     		Move an element after the current element								
+*****************************************************************************/
 void CL_MoveElement(Element *move,Element *current)
 {
 	if (move ==NULL||current==NULL)
@@ -232,14 +222,13 @@ void CL_MoveElement(Element *move,Element *current)
 	move->previous = current;
 }
 /****************************************************************************
-* Function CL_SwapElement()													
-*		Prototype	:	  void CL_SwapElement(List *list,int Number);		
-*		Input Parameter: Element, Element									
+* Function CL_SwapElement()												
+*		Input Parameter: Element *, Element *								
 *		Output Parameter: None								            	
 *																			
-*	  Description															
-*     Swap two element														
-****************************************************************************/
+*	  	Description															
+*     		Swap two element														
+*****************************************************************************/
 void CL_SwapElement(Element *swap1, Element *swap2)
 {
 	if (swap1==NULL||swap2==NULL)
@@ -251,12 +240,12 @@ void CL_SwapElement(Element *swap1, Element *swap2)
 	CL_MoveElement(swap2, swap1previous);
 }
 /****************************************************************************
-* Function CL_ConcatList()													
-*		Prototype	:	  void CL_ConcatList(List *list1,List *list2);		
-*		Input Parameter: List, List							            	
+* Function CL_ConcatList()														
+*		Input Parameter: List *, List *						            		
+*		Output Parameter: None								            	
 *																			
-*	  Description															
-*     Concat the second list into the first									
+*	  	Description															
+*     		Concat the second list into the first									
 ****************************************************************************/
 void CL_ConcatList(List *list1, List *list2)
 {
@@ -266,14 +255,13 @@ void CL_ConcatList(List *list1, List *list2)
 
 }
 /****************************************************************************
-* Function CL_ConcatList()													
-*		Prototype	:	  void CL_ConcatList(List *list1,List *list2);		
-*		Input Parameter: List, Element						            	
+* Function CL_TruncList()													
+*		Input Parameter: List *, Element *						            	
 *		Output Parameter: List								            	
 *																			
-*	  Description															
-*     Trunk a list															
-****************************************************************************/
+*	  	Description															
+*     		Trunk a list															
+*****************************************************************************/
 List *CL_TruncList(List *list, Element *current)
 {
 	List *newList = malloc(sizeof(*list));
@@ -287,11 +275,11 @@ List *CL_TruncList(List *list, Element *current)
 }
 /****************************************************************************
 * Function CL_InitList()													
-*		Prototype	:	  List *CL_InitList();								
 *		Input Parameter: None								            	
-*		Output Parameter: List								            	
-*	  Description															
-*     Initalize the list											        
+*		Output Parameter: List *								            	
+*																			
+*	  	Description															
+*     		Initalize the list											        
 ****************************************************************************/
 List *CL_InitList()
 {
@@ -311,10 +299,12 @@ List *CL_InitList()
 	return list;
 }
 /****************************************************************************
-* Function Init_List()														
-*		Prototype	:	  void Example(void);								
+* Function Example_CL()																				
+*		Input Parameter: None								            	
+*		Output Parameter: None								            	
+*																			
 *	  Description															
-*     Example function												        
+*     		Example function												        
 ****************************************************************************/
 void Example_CL(void)
 {
