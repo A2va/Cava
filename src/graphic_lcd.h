@@ -7,18 +7,39 @@
 ****************************************************************************/
 /****************************************************************************
 * DESCRIPTION																
-* 	  A graphic library for LCD	                        			
+* 	  A graphic library for LCD
+*    This library should be able to work with different drivers as long 
+                    as the sending functions are modified.   
+*    /!\ Some functions have the possibility to be modified to adapt to /!\
+*                             the lcd driver                        			
 ****************************************************************************/
 #ifndef GRAPHIC_LCD_H
 #define GRAPHIC_LCD_H
 #include <stdarg.h>
-
+//Swap
 #define swap(a, b) { unsigned char t = a; a = b; b = t; }
+
+/****************************************************************************
+* LCD SIZE DEFINITION 																                       			
+****************************************************************************/
 #define LCD_SIZEX 128
 #define LCD_SIZEY 64
 #define LCD_SIZEPAGE 8
-#define LCD_PAGE (LCD_SIZEY /LCD_SIZEPAGE)
 
+
+/****************************************************************************
+* INZERNAL DEFINITION  															                       			
+****************************************************************************/
+#define LCD_PAGE (LCD_SIZEY /LCD_SIZEPAGE)
+/****************************************************************************
+* FONT DEFINITION 														                       			
+****************************************************************************/
+#define FONT_WIDTH_FRAME 2
+#define FONT_HEIGHT_FRAME 3
+#define FONT_CHAR0_FRAME 4
+#define FONT_NUMCHAR_FRAME 5
+#define FONT_FIRSTCHAR_FRAME 6
+#define FONT_CHARWIDTH_FRAME 7
 typedef struct str_font str_font;
 struct str_font
 {
@@ -28,12 +49,15 @@ struct str_font
     unsigned char numBytesinChar;
     unsigned char fontWidth;
     unsigned char fontHeight;
+    unsigned char Char0;
 };
-
+/****************************************************************************
+* BUFFER DEFINITION 																                       			
+****************************************************************************/
 unsigned char Buffer[LCD_SIZEX*LCD_PAGE];
 /****************************************************************************
 * Function SetPixel()														
-*		Prototype	:	  void SetPixel(unsigned char x, unsigned char  y, unsigned char  color);				
+*		Prototype	:void SetPixel(unsigned char x, unsigned char  y, unsigned char  color);				
 *																			
 *		Input Parameter: x,y,color(0,1)								            	
 *		Output Parameter: None									        
@@ -131,8 +155,8 @@ void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *c
 ******************************************************************************/
 void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...);
 /****************************************************************************
-* Fonction parser()								                        
-* Prototype: parser(unsigned char x,unsigned char y,str_font font, char *bp, const char *fmt, va_list ap);								
+* Fonction Parser()								                        
+* Prototype: Parser(unsigned char x,unsigned char y,str_font font, const char *fmt, va_list ap);								
 *																			
 *	  Input Parameter: x,y,font,bp,String,ap	
 *	  Output Parameter:	None										
@@ -140,10 +164,10 @@ void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ..
 *	  Description															
 *	 Equivalent printf for lcd                           		        
 ******************************************************************************/
-void parser(unsigned char x,unsigned char y,str_font font, char *bp, const char *fmt, va_list ap);
+void Parser(unsigned char x,unsigned char y,str_font font, const char *fmt, va_list ap);
 /****************************************************************************
-* Fonction outd()								                        
-* Prototype: static char *outd(unsigned char x ,unsigned char y,str_font font,long n, char *bp);								
+* Fonction Outd()								                        
+* Prototype: void Outd(unsigned char x ,unsigned char y,str_font font,long n, char *bp);								
 *																			
 *	  Input Parameter: x,y,font,number,bp
 *	  Output Parameter:	None										
@@ -151,10 +175,10 @@ void parser(unsigned char x,unsigned char y,str_font font, char *bp, const char 
 *	  Description															
 *	 Converts a number into a string in the base 10                         		        
 ******************************************************************************/
-void outd(unsigned char x ,unsigned char y,str_font font,long n);
+void Outd(unsigned char x ,unsigned char y,str_font font,long n);
 /****************************************************************************
-* Fonction outu()								                        
-* Prototype: static char *outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp);							
+* Fonction Outu()								                        
+* Prototype: void Outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp);							
 *																			
 *	  Input Parameter: x,y,font,number,base,bp
 *	  Output Parameter:	None										
@@ -162,7 +186,7 @@ void outd(unsigned char x ,unsigned char y,str_font font,long n);
 *	  Description															
 *	 Converts a number into a string in the desired base                          		        
 ******************************************************************************/
-void outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base);
+void Outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base);
 /****************************************************************************
 * Fonction ClearBuffer()								                        
 * Prototype: void ClearBuffer(voir en dessous);								

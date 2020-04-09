@@ -3,6 +3,13 @@
 #include <stdlib.h>
 #include "src/graphic_lcd.h"
 #include "src/font10x12.h"
+typedef struct str_pos str_pos;
+struct str_pos
+{
+    unsigned char x;
+    unsigned char y;
+};
+
 void printLCD()
 {
     unsigned char Buffer_Print[LCD_SIZEX*LCD_PAGE][8];
@@ -46,13 +53,19 @@ void printLCD()
     
     printf("\nEnd");
 }
+void test(str_pos pos)
+{
+
+
+}
 int main()
 {
     printf("\n");
+    
     str_font str_font10x12=InitFont(font10x12);
-    printfLCD(0,0,str_font10x12,"Hello world");
-    printLCD();
-
+    //printfLCD(0,0,str_font10x12,"Hello world");
+    //printLCD();
+    //test();
     printf("\n-------------------------------------------------------");
     return 0;
 }
