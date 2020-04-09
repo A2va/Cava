@@ -23,23 +23,21 @@ struct LIFO
 	LIFO_Element *first;
 };
 /****************************************************************************
-* Function LIFO_Add()														
-*		Prototype	:	  void LIFO_Add(LIFO *lifo,int number);				
+* Function LIFO_Add()																	
 *		Input Parameter: LIFO,Number								        
 *		Output Parameter: None										        
 *																			
-*	  Description															
-*     Add an element to LIFO											    
+*	  	Description															
+*     		Add an element to LIFO											    
 ****************************************************************************/
 void LIFO_Add(LIFO *lifo, int number);
 /****************************************************************************
-* Function LIFO_Remove()												
-*		Prototype	:	  void LIFO_Remove(LIFO *lifo);						
+* Function LIFO_Remove()																		
 *		Input Parameter: LIFO												
 *		Output Parameter: Data Out										    
 *																			
-*	  Description															
-*     Remove the first elment of LIFO									    
-****************************************************************************/
+*	  	Description															
+*     		Remove the first elment of LIFO									    
+****************************************************************************//
 int LIFO_Remove(LIFO *lifo);
 #endif // !LIFO_H
