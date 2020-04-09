@@ -13,14 +13,12 @@
 #include <stdlib.h>
 #include "filo.h"
 /****************************************************************************
-* Function FILO_Add()														
-*		Prototype	:	  void FILO_Add(FILO *filo,int number);				
-*																		
-*		Input Parameter: FILO,Number								        
+* Function FILO_Add()																	
+*		Input Parameter: FILO * ,Number								        
 *		Output Parameter: None										        
 *																			
-*	  Description															
-*     Add an element to FILO											    
+*	  	Description															
+*     		Add an element to FILO											    
 ****************************************************************************/
 void FILO_Add(FILO *filo, int number)
 {
@@ -47,14 +45,12 @@ void FILO_Add(FILO *filo, int number)
 	}
 }
 /****************************************************************************
-* Function FILO_Add()														
-*		Prototype	:	  void FILO_Add(FILO *filo,int number);				
-*																			
-*		Input Parameter: FILO								            	
+* Function FILO_Remove()															
+*		Input Parameter: FILO *								            	
 *		Output Parameter: Data Out									        
 *																			
-*	  Description															
-*     Remove an element to FILO											    
+*	  	Description															
+*     		Remove an element to FILO											    
 ****************************************************************************/
 int FILO_Remove(FILO *filo)
 {
