@@ -300,7 +300,6 @@ void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *s
 void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...) 
 {
 	va_list ap;
-
 	va_start(ap, fmt);
 	Parser(x,y,font, fmt, ap);
 	va_end(ap);
@@ -419,26 +418,47 @@ void Outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int bas
    DrawString(x,y,font,s);
 }
 /****************************************************************************
-* Fonction ClearBuffer()								                        																			
+* Fonction Clear_Buffer()								                        																			
 *	  Input Parameter: None	
 *	  Output Parameter:	None										
 *															
 *	  Description															
 *	    Clear buffer                              		        
 ******************************************************************************/
-void ClearBuffer() 
+void Buffer_Clear() 
 {
   memset(&Buffer, 0, LCD_SIZEX*LCD_PAGE);
 }
 /****************************************************************************
-* Fonction InitFont()								                        																		
+* Fonction Write_Buffer()								                        																			
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Write buffer on bus                             		        
+******************************************************************************/
+void Buffer_Write() 
+{
+  unsigned char c, p;
+  LCD_SetPos(0,0);
+  for(p = 0; p < 8; p++) 
+  {
+    LCD_SetPos(0,p*LCD_SIZEPAGE);
+    for(c = 0; c < 128; c++) 
+    {
+      LCD_Transmit(Buffer[(LCD_SIZEX*p)+c],1);
+    }
+  }
+}
+/****************************************************************************
+* Fonction Font_Init()								                        																		
 *	  Input Parameter: None	
 *	  Output Parameter:	font										
 *															
 *	  Description															
 *	    Init a font                            		        
 ******************************************************************************/
-str_font InitFont(unsigned char *fontData)
+str_font Font_Init(unsigned char *fontData)
 {
   str_font font;
   
@@ -451,4 +471,110 @@ str_font InitFont(unsigned char *fontData)
   font.numBytesinChar=(font.fontWidth /8)+1;
   return font;
 
+}
+/****************************************************************************
+* Fonction Bus_Init()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Init the bus                            		        
+******************************************************************************/
+void Bus_Init()
+{
+  /*/!\ You may need modify this according to your lcd /!\*/
+  //Init your bus
+
+}
+/****************************************************************************
+* Fonction LCD_Init()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Init LCD                            		        
+******************************************************************************/
+void LCD_Init()
+{
+  unsigned char i =0;
+	Bus_Init();
+	Bus_Transmit(CMD_INTERNAL_RESET);
+	for(i=0;i<NUMBER_FRAME_INIT;i++)
+	{
+		LCD_Transmit(LCD_Init_Tab[i],1);
+	}
+	LCD_CLR();
+}
+/****************************************************************************
+* Fonction LCD_CLR()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Clear LCD                            		        
+******************************************************************************/
+void LCD_Clear()
+{
+	unsigned char c, p;
+	LCD_SetPos(0,0);
+	for(p = 0; p < LCD_PAGE; p++)
+	{
+		LCD_SetPos(0,p*LCD_SIZEPAGE);
+		for(c = 0; c < LCD_SIZEX; c++)
+		{
+			LCD_Transmit(0,1);
+		}
+	}
+}
+/****************************************************************************
+* Fonction LCD_SetPos()								                        																		
+*	  Input Parameter: x,y	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Set Position on LCD                            		        
+******************************************************************************/
+void LCD_SetPos(unsigned char x,unsigned char y)
+{
+  /*/!\ You may need modify this according to your lcd /!\*/
+  LCD_Transmit(CMD_SET_PAGE | (y/LCD_SIZEPAGE),0);
+  LCD_Transmit(CMD_SET_COLUMN_UPPER | (x>>4),0);
+	LCD_Transmit(CMD_SET_COLUMN_LOWER | x & 0x0F,0);	
+}
+/****************************************************************************
+* Fonction LCD_Transmit()								                        																		
+*	  Input Parameter: Data,Cd(0,1)	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Transmit a data or command on LCD                            		        
+******************************************************************************/
+void LCD_Transmit(unsigned char Data,unsigned Cd)
+{
+  /*/!\ You may need modify this according to your lcd /!\*/
+    if (Cd==0)
+    {
+      //Sending a command
+      Bus_Transmit(Data);
+    }
+    else
+    {
+      //Sending a data
+      Bus_Transmit(Data);
+    }
+
+}
+/****************************************************************************
+* Fonction Bus_Transmit()								                        																		
+*	  Input Parameter: Data	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Transmit data on LCD                            		        
+******************************************************************************/
+void Bus_Transmit(unsigned char Data)
+{
+  /*/!\ You may need modify this according to your microcontroller /!\*/
+  //Send your Data on the bus
+  
 }

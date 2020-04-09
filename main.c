@@ -62,7 +62,7 @@ int main()
 {
     printf("\n");
     
-    str_font str_font10x12=InitFont(font10x12);
+    str_font str_font10x12=Font_Init(font10x12);
     //printfLCD(0,0,str_font10x12,"Hello world");
     //printLCD();
     //test();

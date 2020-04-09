@@ -9,26 +9,30 @@
 * DESCRIPTION																
 * 	  A graphic library for LCD
 *    This library should be able to work with different drivers as long 
-                    as the sending functions are modified.   
+*                   as the sending functions are modified.   
 *    /!\ Some functions have the possibility to be modified to adapt to /!\
 *                             the lcd driver                        			
-* Note: 1. The parser system for printfLCD come from this 
-        repository https://github.com/drh/lcc
-        2. The function SetPixel,Circle and Rect come from this repository
-            https://github.com/adafruit/ST7565-LCD
+*    Note: 1. The parser system for printfLCD come from this 
+*                   repository https://github.com/drh/lcc
+*        2. The function SetPixel,Circle and Rect come from this repository
+*                       https://github.com/adafruit/ST7565-LCD
+*        3. You will need to modify these functions in order for it to work 
+*            with your LCD (Init_Bus,LCD_Transmit, Bus_Init and Bus_Transmit) 
+*                               and maybe LCD_SetPos  
 ****************************************************************************/
 #ifndef GRAPHIC_LCD_H
 #define GRAPHIC_LCD_H
 #include <stdarg.h>
 /****************************************************************************
-* LCD SIZE DEFINITION 	    /!\ You can modify this /!\															                       			
+* LCD SIZE DEFINITION 	/!\ You may need modify this according to your lcd /!\															                       			
 ****************************************************************************/
 #define LCD_SIZEX 128
 #define LCD_SIZEY 64
 #define LCD_SIZEPAGE 8
 /****************************************************************************
-* LCD COMMAND DEFINITION 	/!\ You can modify this /!\															                       			
+* LCD COMMAND DEFINITION /!\ You may need modify this according to your lcd /!\															                       			
 ****************************************************************************/
+//These definitions are taken from the EA DOGM128E-6 LCD
 #define CMD_DISPLAY_OFF   0xAE
 #define CMD_DISPLAY_ON    0xAF
 #define CMD_SET_DISP_START_LINE  0x40
@@ -48,21 +52,28 @@
 #define CMD_INTERNAL_RESET  0xE2
 #define CMD_SET_COM_NORMAL  0xC0
 #define CMD_SET_COM_REVERSE  0xC8
-#define CMD_SET_POWER_CONTROL  0x28
+#define CMD_SET_POWER_CONTROL  0x2F
 #define CMD_SET_RESISTOR_RATIO  0x20
+#define CMD_SET_VOLTREG 0x27
 #define CMD_SET_VOLUME_FIRST  0x81
-#define CMD_SET_VOLUME_SECOND  0
+#define CMD_SET_VOLUME_SECOND  0x16
 #define CMD_SET_STATIC_OFF  0xAC
 #define CMD_SET_STATIC_ON  0xAD
 #define CMD_SET_STATIC_REG  0x0
+#define CMD_SET_BOOSTER_ON 0x2F
 #define CMD_SET_BOOSTER_FIRST  0xF8
-#define CMD_SET_BOOSTER_234  0
-#define CMD_SET_BOOSTER_5  1
-#define CMD_SET_BOOSTER_6  3
 #define CMD_NOP  0xE3
 #define CMD_TEST  0xF0
 /****************************************************************************
-* INZERNAL DEFINITION  															                       			
+* LCD INIT PROCEDURE /!\ You may need modify this according to your lcd /!\															                       			
+****************************************************************************/
+//These init procedure are taken from the EA DOGM128E-6 LCD
+#define NUMBER_FRAME_INIT 14
+const unsigned char LCD_Init_Tab[NUMBER_FRAME_INIT]={CMD_SET_DISP_START_LINE,CMD_SET_ADC_REVERSE,CMD_SET_COM_NORMAL,
+CMD_SET_DISP_NORMAL,CMD_SET_BIAS_9,CMD_SET_BOOSTER_ON,CMD_SET_BOOSTER_FIRST,0x00,
+CMD_SET_VOLTREG,CMD_SET_VOLUME_FIRST,CMD_SET_VOLUME_SECOND,CMD_SET_STATIC_OFF,0x00,CMD_DISPLAY_ON};
+/****************************************************************************
+* INTERNAL DEFINITION  															                       			
 ****************************************************************************/
 #define LCD_PAGE (LCD_SIZEY /LCD_SIZEPAGE)
 #define swap(a, b) { unsigned char t = a; a = b; b = t; }
@@ -199,21 +210,84 @@ void Outd(unsigned char x ,unsigned char y,str_font font,long n);
 ******************************************************************************/
 void Outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base);
 /****************************************************************************
-* Fonction ClearBuffer()								                        																			
+* Fonction Buffer_Clear()								                        																			
 *	  Input Parameter: None	
 *	  Output Parameter:	None										
 *															
 *	  Description															
 *	    Clear buffer                              		        
 ******************************************************************************/
-void ClearBuffer();
+void Buffer_Clear();
 /****************************************************************************
-* Fonction InitFont()								                        																		
+* Fonction Buffer_Write()								                        																			
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Write buffer on bus                             		        
+******************************************************************************/
+void Buffer_Write();
+/****************************************************************************
+* Fonction Font_Init()								                        																		
 *	  Input Parameter: None	
 *	  Output Parameter:	font										
 *															
 *	  Description															
 *	    Init a font                            		        
 ******************************************************************************/
-str_font InitFont(unsigned char *fontData);
+str_font Font_Init(unsigned char *fontData);
+/****************************************************************************
+* Fonction Bus_Init()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Init the bus                            		        
+******************************************************************************/
+void Bus_Init();
+/****************************************************************************
+* Fonction LCD_Init()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Init LCD                            		        
+******************************************************************************/
+void LCD_Init();
+/****************************************************************************
+* Fonction LCD_Clear()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Clear LCD                            		        
+******************************************************************************/
+void LCD_Clear();
+/****************************************************************************
+* Fonction LCD_SetPos()								                        																		
+*	  Input Parameter: x,y	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Set Position on LCD                            		        
+******************************************************************************/
+void LCD_SetPos(unsigned char x,unsigned char y);
+/****************************************************************************
+* Fonction LCD_Transmit()								                        																		
+*	  Input Parameter: Data,Cd(0,1)	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Transmit a data or command on LCD                            		        
+******************************************************************************/
+void LCD_Transmit(unsigned char Data,unsigned Cd);
+/****************************************************************************
+* Fonction Bus_Transmit()								                        																		
+*	  Input Parameter: Data	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Transmit data on LCD                            		        
+******************************************************************************/
+void Bus_Transmit(unsigned char Data);
 #endif
