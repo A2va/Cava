@@ -57,156 +57,128 @@ struct str_font
 unsigned char Buffer[LCD_SIZEX*LCD_PAGE];
 /****************************************************************************
 * Function SetPixel()														
-*		Prototype	:void SetPixel(unsigned char x, unsigned char  y, unsigned char  color);				
-*																			
 *		Input Parameter: x,y,color(0,1)								            	
 *		Output Parameter: None									        
 *																			
-*	  Description															
-*     Set a pixel on buffer											    
+*	    Description															
+*         Set a pixel on buffer											    
 ****************************************************************************/
 void SetPixel(unsigned char x, unsigned char  y, unsigned char  color);
 /****************************************************************************
-* Function DrawCircle()														
-*		Prototype	:	  void DrawCircle(unsigned char x0, unsigned char y0, unsigned char r,unsigned char color);				
-*																			
+* Function DrawCircle()																					
 *		Input Parameter: x0,y0,radius,color(0,1)								            	
 *		Output Parameter: None									        
 *																			
-*	  Description															
-*     Set a pixel on buffer											    
+*	    Description															
+*          Set a pixel on buffer											    
 ****************************************************************************/
 void DrawCircle(unsigned char x0, unsigned char y0, unsigned char r,unsigned char color);
 /****************************************************************************
-* Function DrawCircle()														
-*		Prototype	:	  void FillCircle(unsigned char x0, unsigned char y0, unsigned char r, unsigned char color);				
-*																			
+* Function FillCircle()																																
 *		Input Parameter: x0,y0,radius,color(0,1)								            	
 *		Output Parameter: None									        
 *																			
-*	  Description															
-*     Set a  fill circle on buffer											    
+*	    Description															
+*           Set a  fill circle on buffer											    
 ****************************************************************************/
 void FillCircle(unsigned char x0, unsigned char y0, unsigned char r, unsigned char color); 
 /****************************************************************************
-* Function DrawRect()														
-*		Prototype	:	  void DrawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h,uint8_t color);			
-*																			
+* Function DrawRect()																																
 *		Input Parameter: x0,y0,radius,color(0,1)								            	
 *		Output Parameter: None									        
 *																			
-*	  Description															
-*     Draw a rectangle on buffer										    
+*	    Description															
+*          Draw a rectangle on buffer										    
 ****************************************************************************/
 void DrawRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h,unsigned char color);
 /****************************************************************************
-* Function FillRect()								                        
-* Prototype: void FillRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h,unsigned char color);								
-*																			
+* Function FillRect()								                       																			
 *	  Input Parameter: x0,y0 et width,height,color(0,1) 		
 *	  Output Parameter: None										
 *															
 *	  Description															
-*	 Fill a rectangle on buffer                               		        
+*	        Fill a rectangle on buffer                               		        
 ******************************************************************************/
 void FillRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h,unsigned char color);
 /****************************************************************************
-* Fonction DrawLine()								                        
-* Prototype: void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char color);								
-*																			
+* Fonction DrawLine()								                        																		
 *	  Input Parameter: x0,y0 et x1,y1,color(0,1) 	
 *	  Output Parameter:	None										
 *														
 *	  Description															
-*	 Affiche un ligne                                        		        
+*	    Display a line                                        		        
 ****************************************************************************/
 void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char color);
 /****************************************************************************
-* Fonction DrawChar()								                        
-* Prototype: void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font);								
-*																			
+* Fonction DrawChar()								                        																			
 *	  Input Parameter: x,y,charecter, font	
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Draw character on buffer                              		        
+*	    Draw character on buffer                              		        
 ******************************************************************************/
 void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char c);
 /****************************************************************************
-* Fonction DrawString()								                        
-* Prototype: void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font);							
-*																			
+* Fonction DrawString()								                        																			
 *	  Input Parameter: x,y,charecter, font	
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Draw string on buffer                              		        
+*	    Draw string on buffer                              		        
 ******************************************************************************/
 void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *c);
 /****************************************************************************
-* Fonction printfLCD()								                        
-* Prototype: void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...);								
-*																			
+* Fonction printfLCD()								                        																			
 *	  Input Parameter: x,y,font,String,variable	
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Equivalent printf for lcd                           		        
+*	    Equivalent printf for lcd                           		        
 ******************************************************************************/
 void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...);
 /****************************************************************************
-* Fonction Parser()								                        
-* Prototype: Parser(unsigned char x,unsigned char y,str_font font, const char *fmt, va_list ap);								
-*																			
-*	  Input Parameter: x,y,font,bp,String,ap	
+* Fonction Parser()								                        																		
+*	  Input Parameter: x,y,font,String,ap	
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Equivalent printf for lcd                           		        
+*	    Parser for printfLCD                           		        
 ******************************************************************************/
 void Parser(unsigned char x,unsigned char y,str_font font, const char *fmt, va_list ap);
 /****************************************************************************
-* Fonction Outd()								                        
-* Prototype: void Outd(unsigned char x ,unsigned char y,str_font font,long n, char *bp);								
-*																			
+* Fonction Outd()								                        																			
 *	  Input Parameter: x,y,font,number,bp
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Converts a number into a string in the base 10                         		        
+*	    Converts a number into a string in the base 10                         		        
 ******************************************************************************/
 void Outd(unsigned char x ,unsigned char y,str_font font,long n);
 /****************************************************************************
-* Fonction Outu()								                        
-* Prototype: void Outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base, char *bp);							
-*																			
-*	  Input Parameter: x,y,font,number,base,bp
+* Fonction Outu()								                        																			
+*	  Input Parameter: x,y,font,number,base
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Converts a number into a string in the desired base                          		        
+*	    Converts a number into a string in the desired base                          		        
 ******************************************************************************/
 void Outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base);
 /****************************************************************************
-* Fonction ClearBuffer()								                        
-* Prototype: void ClearBuffer(voir en dessous);								
-*																			
+* Fonction ClearBuffer()								                        																			
 *	  Input Parameter: None	
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Clear buffer                              		        
+*	    Clear buffer                              		        
 ******************************************************************************/
 void ClearBuffer();
 /****************************************************************************
-* Fonction InitFont()								                        
-* Prototype: str_font InitFont();								
-*																			
+* Fonction InitFont()								                        																		
 *	  Input Parameter: None	
 *	  Output Parameter:	font										
 *															
 *	  Description															
-*	 Init a font                            		        
+*	    Init a font                            		        
 ******************************************************************************/
 str_font InitFont(unsigned char *fontData);
 #endif
