@@ -10,21 +10,20 @@
 * 	  Chained List see graphic_lcd.h	                        			
 ****************************************************************************/
 #include "graphic_lcd.h"
+#include "font10x12.h"
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
-//https://github.com/adafruit/ST7565-LCD
+
 /****************************************************************************
 * Function SetPixel()														
-*		Prototype	:	  void SetPixel(unsigned char x, unsigned char  y, unsigned char  color);				
-*																			
 *		Input Parameter: x,y,color(0,1)								            	
 *		Output Parameter: None									        
 *																			
-*	  Description															
-*     Set a pixel on buffer											    
+*	    Description															
+*         Set a pixel on buffer											    
 ****************************************************************************/
-void 
-SetPixel(unsigned char x, unsigned char  y, unsigned char  color)
+void SetPixel(unsigned char x, unsigned char  y, unsigned char  color)
 {
 	 if ((x >= LCD_SIZEX) || (y >= LCD_SIZEY))
     return;
@@ -38,14 +37,12 @@ SetPixel(unsigned char x, unsigned char  y, unsigned char  color)
 	}
 }
 /****************************************************************************
-* Function DrawCircle()														
-*		Prototype	:	  void DrawCircle(unsigned char x0, unsigned char y0, unsigned char r,unsigned char color);				
-*																			
+* Function DrawCircle()																					
 *		Input Parameter: x0,y0,radius,color(0,1)								            	
 *		Output Parameter: None									        
 *																			
-*	  Description															
-*     Set a circle on buffer											    
+*	    Description															
+*          Set a pixel on buffer											    
 ****************************************************************************/
 void DrawCircle(unsigned char x0, unsigned char y0, unsigned char r,unsigned char color) 
 {
@@ -83,14 +80,12 @@ void DrawCircle(unsigned char x0, unsigned char y0, unsigned char r,unsigned cha
   }
 }
 /****************************************************************************
-* Function DrawCircle()														
-*		Prototype	:	  void FillCircle(unsigned char x0, unsigned char y0, unsigned char r, unsigned char color);				
-*																			
+* Function FillCircle()																																
 *		Input Parameter: x0,y0,radius,color(0,1)								            	
 *		Output Parameter: None									        
 *																			
-*	  Description															
-*     Set a  fill circle on buffer											    
+*	    Description															
+*           Set a  fill circle on buffer											    
 ****************************************************************************/
 void FillCircle(unsigned char x0, unsigned char y0, unsigned char r, unsigned char color) 
 {
@@ -132,14 +127,12 @@ void FillCircle(unsigned char x0, unsigned char y0, unsigned char r, unsigned ch
   }
 }
 /****************************************************************************
-* Function DrawRect()														
-*		Prototype	:	  void DrawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h,uint8_t color);			
-*																			
-*		Input Parameter: x0,y0,radius,color(0,1)								            	
+* Function DrawRect()																																
+*		Input Parameter: x,y,radius,color(0,1)								            	
 *		Output Parameter: None									        
 *																			
-*	  Description															
-*     Draw a rectangle on buffer										    
+*	    Description															
+*          Draw a rectangle on buffer										    
 ****************************************************************************/
 void DrawRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h,unsigned char color) 
 {
@@ -156,14 +149,12 @@ void DrawRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h
 	}
 }
 /****************************************************************************
-* Fonction FillRect()								                        
-* Prototype: void FillRect(voir en dessous);								
-*																			
-*	  Input Parameter: x0,y0 et width,height,color(0,1) 		
-*	  Output Parameter:	None										
+* Function FillRect()								                       																			
+*	  Input Parameter: x,y, width,height and color(0,1) 		
+*	  Output Parameter: None										
 *															
 *	  Description															
-*	 Fill a rectangle on buffer                               		        
+*	        Fill a rectangle on buffer                               		        
 ******************************************************************************/
 void FillRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h,unsigned char color) 
 {
@@ -180,14 +171,12 @@ void FillRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h
 
 }
 /****************************************************************************
-* Fonction DrawLine()								                        
-* Prototype: void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char color);								
-*																			
-*	  Input Parameter: x0,y0 et x1,y1,color(0,1) 	
+* Fonction DrawLine()								                        																		
+*	  Input Parameter: x0,y0 ,x1,y1 and color(0,1) 	
 *	  Output Parameter:	None										
 *														
 *	  Description															
-*	 Affiche un ligne                                        		        
+*	    Display a line                                        		        
 ****************************************************************************/
 void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char color)
 {
@@ -239,23 +228,21 @@ void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned cha
   }
 }
 /****************************************************************************
-* Fonction DrawChar()								                        
-* Prototype: void DrawChar(unsigned char x,unsigned char y,unsigned char *c,str_font font);							
-*																			
-*	  Input Parameter: x,y,charecter, font	
+* Fonction DrawChar()								                        																			
+*	  Input Parameter: x,y,font,character	
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Draw character on buffer                              		        
+*	    Draw character on buffer                              		        
 ******************************************************************************/
-void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font)
+void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char c)
 {
   unsigned char *car=font.firstChar;
   unsigned char i=0;
   unsigned char j=0;
-  unsigned char WidthChar=*(font.charWidth+c-33);
+  unsigned char WidthChar=*(font.charWidth+c-font.Char0);
   unsigned char Page=y/LCD_SIZEPAGE;
-  for (i = 0; i < c-33; i++)
+  for (i = 0; i < c-font.Char0; i++)
   {
     car=(*(font.charWidth+i)*font.numBytesinChar)+car;
   }
@@ -280,22 +267,20 @@ void DrawChar(unsigned char x,unsigned char y,unsigned char c,str_font font)
   
 }
 /****************************************************************************
-* Fonction DrawString()								                        
-* Prototype: void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font);							
-*																			
-*	  Input Parameter: x,y,charecter, font	
+* Fonction DrawString()								                        																			
+*	  Input Parameter: x,y,font,string	
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Draw string on buffer                              		        
+*	    Draw string on buffer                              		        
 ******************************************************************************/
-void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font) 
+void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *s) 
 {
-  while (*c != '\0') 
+  while (*s != '\0') 
   {
-    DrawChar(x,y,*c,font);
-    x += *(font.charWidth+(*c)-33)+2;
-    c++;
+    DrawChar(x,y,font,*s);
+    x += *(font.charWidth+(*s)-font.Char0)+2;
+    s++;
     if (x  >= LCD_SIZEX) {
       x = 0;   
       y++;
@@ -306,39 +291,316 @@ void DrawString(unsigned char x, unsigned char y, unsigned char *c,str_font font
 
 }
 /****************************************************************************
-* Fonction ClearBuffer()								                        
-* Prototype: void ClearBuffer(voir en dessous);								
-*																			
+* Fonction printfLCD()								                        																			
+*	  Input Parameter: x,y,font,string,variable	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Equivalent printf for lcd                           		        
+******************************************************************************/
+void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...) 
+{
+	va_list ap;
+	va_start(ap, fmt);
+	Parser(x,y,font, fmt, ap);
+	va_end(ap);
+}
+/****************************************************************************
+* Fonction Parser()								                        																		
+*	  Input Parameter: x,y,font,String,ap	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Parser for printfLCD                           		        
+******************************************************************************/
+void Parser(unsigned char x,unsigned char y,str_font font, const char *fmt, va_list ap) 
+{
+  static char format[] = "%f";
+	char buf[128];
+  char n=0;
+  void *p;
+	for (; *fmt; fmt++)
+  {
+      if (*fmt == '%')
+      {	
+        switch (*++fmt) 
+        {
+            case 'd': Outd(x,y,font,va_arg(ap, int)); break;
+            case 'D': Outd(x,y,font,va_arg(ap, long)); break;
+            case 'U': Outu(x,y,font,va_arg(ap, unsigned long), 10); break;
+            case 'u': Outu(x,y,font,va_arg(ap, unsigned), 10); break;
+            case 'o': Outu(x,y,font,va_arg(ap, unsigned), 8); break;
+            case 'X': Outu(x,y,font,va_arg(ap, unsigned long), 16); break;
+            case 'x': Outu(x,y,font,va_arg(ap, unsigned), 16); break;
+            case 'f': 
+            case 'e':
+            case 'g': 
+                format[1] = *fmt;
+                sprintf(buf, format, va_arg(ap, double));
+                DrawString(x,y,font,buf);
+            break;
+            case 'p': 
+            
+              p = va_arg(ap, void *);
+              if (p)
+              {
+                  Outu(x,y,font,(unsigned long)p, 16);
+              }
+
+            break;
+            case 's': 
+                  DrawString(x,y,font,va_arg(ap, char *)); 
+            break;
+            case 'c':
+                  DrawChar(x,y,font,va_arg(ap, int)); 
+            break;
+              
+            default:  
+            break;
+        }
+      }
+      else
+      {
+          DrawChar(x,y,font,*fmt);
+      }
+      x += *(font.charWidth+(*fmt)-font.Char0)+2;
+    }
+}
+/****************************************************************************
+* Fonction Outd()								                        																			
+*	  Input Parameter: x,y,font,number
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Converts a number into a string in the base 10                         		        
+******************************************************************************/
+void Outd(unsigned char x ,unsigned char y,str_font font,long n) 
+{
+	unsigned long m;
+	char buf[25], *s = buf + sizeof buf;
+
+	*--s = '\0';
+	if (n < 0)
+  {
+		m = -n;
+  }
+	else
+  {
+		m = n;
+  }
+	do
+  {
+		*--s = m%10 + '0';
+  }while ((m /= 10) != 0);
+	if (n < 0)
+  {
+		*--s = '-';
+  }
+  DrawString(x,y,font,s);
+}
+/****************************************************************************
+* Fonction Outu()								                        																			
+*	  Input Parameter: x,y,font,number,base
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Converts a number into a string in the desired base                          		        
+******************************************************************************/
+void Outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int base) 
+{
+	char buf[25], *s = buf + sizeof buf;
+
+	*--s = '\0';
+	do
+  {
+		*--s = "0123456789ABCDEF"[n%base];
+  }while ((n /= base) != 0);
+
+   DrawString(x,y,font,s);
+}
+/****************************************************************************
+* Fonction Buffer_Clear()								                        																			
 *	  Input Parameter: None	
 *	  Output Parameter:	None										
 *															
 *	  Description															
-*	 Clear buffer                              		        
+*	    Clear buffer                              		        
 ******************************************************************************/
-void ClearBuffer() 
+void Buffer_Clear() 
 {
   memset(&Buffer, 0, LCD_SIZEX*LCD_PAGE);
 }
 /****************************************************************************
-* Fonction InitFont()								                        
-* Prototype: str_font InitFont();								
-*																			
+* Fonction Buffer_Write()								                        																			
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Write buffer on bus                             		        
+******************************************************************************/
+void Buffer_Write() 
+{
+  unsigned char c, p;
+  LCD_SetPos(0,0);
+  for(p = 0; p < 8; p++) 
+  {
+    LCD_SetPos(0,p*LCD_SIZEPAGE);
+    for(c = 0; c < 128; c++) 
+    {
+      LCD_Transmit(Buffer[(LCD_SIZEX*p)+c],1);
+    }
+  }
+}
+/****************************************************************************
+* Fonction Font_Init()								                        																		
 *	  Input Parameter: None	
 *	  Output Parameter:	font										
 *															
 *	  Description															
-*	 Init a font                            		        
+*	    Init a font                            		        
 ******************************************************************************/
-str_font InitFont(unsigned char *fontData)
+str_font Font_Init(unsigned char *fontData)
 {
   str_font font;
   
-  font.fontWidth=*(fontData+2);
-  font.fontHeight=*(fontData +3);
-  font.numChar=*(fontData + 5);
-  font.firstChar=fontData + font.numChar + 6;
-  font.charWidth= fontData +7;
+  font.fontWidth=*(fontData+FONT_WIDTH_FRAME);
+  font.fontHeight=*(fontData +FONT_HEIGHT_FRAME);
+  font.Char0=*(fontData+FONT_CHAR0_FRAME)+1;
+  font.numChar=*(fontData + FONT_NUMCHAR_FRAME);
+  font.firstChar=fontData + font.numChar + FONT_FIRSTCHAR_FRAME;
+  font.charWidth= fontData +FONT_CHARWIDTH_FRAME;
   font.numBytesinChar=(font.fontWidth /8)+1;
   return font;
+
+}
+/****************************************************************************
+* Fonction Bus_Init()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Init the bus                            		        
+******************************************************************************/
+void Bus_Init()
+{
+  /*/!\ You may need modify this according to your lcd /!\*/
+  //Init your bus
+
+}
+/****************************************************************************
+* Fonction LCD_Init()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Init LCD                            		        
+******************************************************************************/
+void LCD_Init()
+{
+  unsigned char i =0;
+	Bus_Init();
+	Bus_Transmit(CMD_INTERNAL_RESET);
+	for(i=0;i<NUMBER_FRAME_INIT;i++)
+	{
+		LCD_Transmit(LCD_Init_Tab[i],1);
+	}
+	LCD_Clear();
+}
+/****************************************************************************
+* Fonction LCD_Clear()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Clear LCD                            		        
+******************************************************************************/
+void LCD_Clear()
+{
+	unsigned char c, p;
+	LCD_SetPos(0,0);
+	for(p = 0; p < LCD_PAGE; p++)
+	{
+		LCD_SetPos(0,p*LCD_SIZEPAGE);
+		for(c = 0; c < LCD_SIZEX; c++)
+		{
+			LCD_Transmit(0,1);
+		}
+	}
+}
+/****************************************************************************
+* Fonction LCD_SetPos()								                        																		
+*	  Input Parameter: x,y	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Set Position on LCD                            		        
+******************************************************************************/
+void LCD_SetPos(unsigned char x,unsigned char y)
+{
+  /*/!\ You may need modify this according to your lcd /!\*/
+  LCD_Transmit(CMD_SET_PAGE | (y/LCD_SIZEPAGE),0);
+  LCD_Transmit(CMD_SET_COLUMN_UPPER | (x>>4),0);
+	LCD_Transmit(CMD_SET_COLUMN_LOWER | x & 0x0F,0);	
+}
+/****************************************************************************
+* Fonction LCD_Transmit()								                        																		
+*	  Input Parameter: Data,Cd(0,1)	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Transmit a data or command on LCD                            		        
+******************************************************************************/
+void LCD_Transmit(unsigned char Data,unsigned Cd)
+{
+  /*/!\ You may need modify this according to your lcd /!\*/
+    if (Cd==0)
+    {
+      //Sending a command
+      Bus_Transmit(Data);
+    }
+    else
+    {
+      //Sending a data
+      Bus_Transmit(Data);
+    }
+
+}
+/****************************************************************************
+* Fonction Bus_Transmit()								                        																		
+*	  Input Parameter: Data	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    Transmit data on LCD                            		        
+******************************************************************************/
+void Bus_Transmit(unsigned char Data)
+{
+  /*/!\ You may need modify this according to your microcontroller /!\*/
+  //Send your Data on the bus
+  
+}
+/****************************************************************************
+* Fonction Example_LCD()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    A example function                           		        
+******************************************************************************/
+void Example_LCD()
+{
+  str_font str_font10x12;
+  str_font10x12=Font_Init(font10x12);//Init your font 
+  LCD_Init();
+
+  printfLCD(0,0,str_font10x12,"Hello world");//Display Hello world with the selected font
+  DrawString(0,0,str_font10x12,"Hello world");//Display Hello world with the selected font
+
+  printfLCD(0,0,str_font10x12,"%d",str_font10x12.fontHeight);//Display font height
+
+  DrawCircle(0,0,5,1);//Display a circle 
+  FillCircle(0,0,5,1);//Display a  fill circle 
+
+  Buffer_Write();//Write the buffer on lcd
 
 }
