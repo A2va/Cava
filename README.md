@@ -10,4 +10,4 @@ In this library you will find:
 * And other useful functions - misc.h
 
 For the lcd library you must use FontCreator to create and generate the fonts. 
-The program is available at this [repository](https://www.reddit.com/r/BlingEdit/comments/9pdd2w/subreddit_plugin_list/).
+The program is available at this [repository](https://github.com/A2va/FontCreator).
