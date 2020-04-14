@@ -10,6 +10,7 @@
 * 	  Chained List see graphic_lcd.h	                        			
 ****************************************************************************/
 #include "graphic_lcd.h"
+#include "font10x12.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -127,7 +128,7 @@ void FillCircle(unsigned char x0, unsigned char y0, unsigned char r, unsigned ch
 }
 /****************************************************************************
 * Function DrawRect()																																
-*		Input Parameter: x0,y0,radius,color(0,1)								            	
+*		Input Parameter: x,y,radius,color(0,1)								            	
 *		Output Parameter: None									        
 *																			
 *	    Description															
@@ -149,7 +150,7 @@ void DrawRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h
 }
 /****************************************************************************
 * Function FillRect()								                       																			
-*	  Input Parameter: x0,y0 et width,height,color(0,1) 		
+*	  Input Parameter: x,y, width,height and color(0,1) 		
 *	  Output Parameter: None										
 *															
 *	  Description															
@@ -171,7 +172,7 @@ void FillRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h
 }
 /****************************************************************************
 * Fonction DrawLine()								                        																		
-*	  Input Parameter: x0,y0 et x1,y1,color(0,1) 	
+*	  Input Parameter: x0,y0 ,x1,y1 and color(0,1) 	
 *	  Output Parameter:	None										
 *														
 *	  Description															
@@ -228,7 +229,7 @@ void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned cha
 }
 /****************************************************************************
 * Fonction DrawChar()								                        																			
-*	  Input Parameter: x,y,charecter, font	
+*	  Input Parameter: x,y,font,character	
 *	  Output Parameter:	None										
 *															
 *	  Description															
@@ -267,7 +268,7 @@ void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char c)
 }
 /****************************************************************************
 * Fonction DrawString()								                        																			
-*	  Input Parameter: x,y,charecter, font	
+*	  Input Parameter: x,y,font,string	
 *	  Output Parameter:	None										
 *															
 *	  Description															
@@ -291,7 +292,7 @@ void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *s
 }
 /****************************************************************************
 * Fonction printfLCD()								                        																			
-*	  Input Parameter: x,y,font,String,variable	
+*	  Input Parameter: x,y,font,string,variable	
 *	  Output Parameter:	None										
 *															
 *	  Description															
@@ -418,7 +419,7 @@ void Outu(unsigned char x,unsigned char y,str_font font,unsigned long n, int bas
    DrawString(x,y,font,s);
 }
 /****************************************************************************
-* Fonction Clear_Buffer()								                        																			
+* Fonction Buffer_Clear()								                        																			
 *	  Input Parameter: None	
 *	  Output Parameter:	None										
 *															
@@ -430,7 +431,7 @@ void Buffer_Clear()
   memset(&Buffer, 0, LCD_SIZEX*LCD_PAGE);
 }
 /****************************************************************************
-* Fonction Write_Buffer()								                        																			
+* Fonction Buffer_Write()								                        																			
 *	  Input Parameter: None	
 *	  Output Parameter:	None										
 *															
@@ -503,10 +504,10 @@ void LCD_Init()
 	{
 		LCD_Transmit(LCD_Init_Tab[i],1);
 	}
-	LCD_CLR();
+	LCD_Clear();
 }
 /****************************************************************************
-* Fonction LCD_CLR()								                        																		
+* Fonction LCD_Clear()								                        																		
 *	  Input Parameter: None	
 *	  Output Parameter:	None										
 *															
@@ -577,4 +578,29 @@ void Bus_Transmit(unsigned char Data)
   /*/!\ You may need modify this according to your microcontroller /!\*/
   //Send your Data on the bus
   
+}
+/****************************************************************************
+* Fonction Example_LCD()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    A example function                           		        
+******************************************************************************/
+void Example_LCD()
+{
+  str_font str_font10x12;
+  str_font10x12=Font_Init(font10x12);//Init your font 
+  LCD_Init();
+
+  printfLCD(0,0,str_font10x12,"Hello world");//Display Hello world with the selected font
+  DrawString(0,0,str_font10x12,"Hello world");//Display Hello world with the selected font
+
+  printfLCD(0,0,str_font10x12,"%d",str_font10x12.fontHeight);//Display font height
+
+  DrawCircle(0,0,5,1);//Display a circle 
+  FillCircle(0,0,5,1);//Display a  fill circle 
+
+  Buffer_Write();//Write the buffer on lcd
+
 }

@@ -157,7 +157,7 @@ void FillRect(unsigned char x, unsigned char y, unsigned char w, unsigned char h
 void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char color);
 /****************************************************************************
 * Fonction DrawChar()								                        																			
-*	  Input Parameter: x,y,charecter, font	
+*	  Input Parameter: x,y,font,character	
 *	  Output Parameter:	None										
 *															
 *	  Description															
@@ -166,7 +166,7 @@ void DrawLine(unsigned char x0, unsigned char y0, unsigned char x1, unsigned cha
 void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char c);
 /****************************************************************************
 * Fonction DrawString()								                        																			
-*	  Input Parameter: x,y,charecter, font	
+*	  Input Parameter: x,y,string, font	
 *	  Output Parameter:	None										
 *															
 *	  Description															
@@ -175,7 +175,7 @@ void DrawChar(unsigned char x,unsigned char y,str_font font,unsigned char c);
 void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *c);
 /****************************************************************************
 * Fonction printfLCD()								                        																			
-*	  Input Parameter: x,y,font,String,variable	
+*	  Input Parameter: x,y,font,string,variable	
 *	  Output Parameter:	None										
 *															
 *	  Description															
@@ -184,7 +184,7 @@ void DrawString(unsigned char x, unsigned char y,str_font font, unsigned char *c
 void printfLCD(unsigned char x,unsigned char y,str_font font,const char *fmt, ...);
 /****************************************************************************
 * Fonction Parser()								                        																		
-*	  Input Parameter: x,y,font,String,ap	
+*	  Input Parameter: x,y,font,string,ap	
 *	  Output Parameter:	None										
 *															
 *	  Description															
@@ -290,4 +290,13 @@ void LCD_Transmit(unsigned char Data,unsigned Cd);
 *	    Transmit data on LCD                            		        
 ******************************************************************************/
 void Bus_Transmit(unsigned char Data);
+/****************************************************************************
+* Fonction Example_LCD()								                        																		
+*	  Input Parameter: None	
+*	  Output Parameter:	None										
+*															
+*	  Description															
+*	    A example function                           		        
+******************************************************************************/
+void Example_LCD();
 #endif
