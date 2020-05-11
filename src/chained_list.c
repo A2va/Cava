@@ -17,17 +17,17 @@
 /****************************************************************************
 * Function CL_InsertFirst()																
 *		Input Parameter: List *								            	
-*		Output Parameter: None								            	
+*		Output Parameter: Element *, returns null if the allocation doesn't work								            	
 *																			
 *	  	Description															
 *     		Insert an element at the beginning of the list					    
 *****************************************************************************/
-void CL_InsertFirst(List *list)
+Element *CL_InsertFirst(List *list)
 {
 	Element *newElement = malloc(sizeof(Element));
 	if (list == NULL || newElement == NULL)
 	{
-		exit(EXIT_FAILURE);
+		return NULL;
 	}
 	Element *current = list->first;
 	newElement->next = current;
@@ -35,21 +35,22 @@ void CL_InsertFirst(List *list)
 	list->first = newElement;
 
 	list->CountElement++;
+	return newElement;
 }
 /****************************************************************************
 * Function CL_InsertLast()																	
 *		Input Parameter: List *								            	
-*		Output Parameter: None								            	
+*		Output Parameter: Element *, returns null if the allocation doesn't work								            	
 *																			
 *	  	Description															
 *     		Insert an element at the end of the list						        
 *****************************************************************************/
-void CL_InsertLast(List *list)
+Element *CL_InsertLast(List *list)
 {
 	Element *newElement = malloc(sizeof(Element));
 	if (list == NULL || newElement == NULL)
 	{
-		exit(EXIT_FAILURE);
+		return NULL;
 	}
 	newElement->next = NULL;
 	list->last->next = newElement;
@@ -57,21 +58,22 @@ void CL_InsertLast(List *list)
 	list->last = newElement;
 
 	list->CountElement++;
+	return newElement;
 }
 /****************************************************************************
 * Function CL_Insert()																
 *		Input Parameter: List *, Element *					            	
-*		Output Parameter: None								            	
+*		Output Parameter: Output Parameter: Element *, returns null if the allocation doesn't work								            	
 *																			
 *	  	Description															
 *     		Insert an element after the selected element						    
 *****************************************************************************/
-void CL_Insert(List *list, Element *current)
+Element *CL_Insert(List *list, Element *current)
 {
 	Element *newElement = malloc(sizeof(Element));
 	if (list == NULL || newElement == NULL || current == NULL)
 	{
-		exit(EXIT_FAILURE);
+		return NULL;
 	}
 	if (current->next!=NULL)
 	{
@@ -81,21 +83,23 @@ void CL_Insert(List *list, Element *current)
 		current->next = newElement;
 
 		list->CountElement++;
+		return newElement;
 	}
+	return NULL;
 }
 /****************************************************************************
 * Function CL_DeleteFirst()																
 *		Input Parameter: List *								            	
-*		Output Parameter: None								            	
+*		Output Parameter: Return 0,1 (0->Problem,1->Any problem)								            	
 *																			
 *	  	Description															
 *     		Delete first element												    
 *****************************************************************************/
-void CL_DeleteFirst(List *list)
+int CL_DeleteFirst(List *list)
 {
 	if (list == NULL)
 	{
-		exit(EXIT_FAILURE);
+		return 0;
 	}
 	Element *deleteElement = list->first;
 	list->first = list->first->next;
@@ -103,21 +107,22 @@ void CL_DeleteFirst(List *list)
 
 	list->CountElement--;
 	free(deleteElement);
+	return 1;
 
 }
 /****************************************************************************
 * Function CL_DeleteLast()																	
 *		Input Parameter: List *								            	
-*		Output Parameter: None								            	
+*		Output Parameter: Return 0,1 (0->Problem,1->Any problem)								            	
 *																			
 *	  	Description															
 *     		Insert an element at the beginning of the list					    
 *****************************************************************************/
-void CL_DeleteLast(List *list)
+int CL_DeleteLast(List *list)
 {
 	if (list == NULL)
 	{
-		exit(EXIT_FAILURE);
+		return 0;
 	}
 	Element *deleteElement = list->last;
 	list->last = list->last->previous;
@@ -125,43 +130,46 @@ void CL_DeleteLast(List *list)
 
 	list->CountElement--;
 	free(deleteElement);
+	return 1;
 
 }
 /****************************************************************************
 * Function CL_Delete()															
 *		Input Parameter: List *, Element *						            	
-*		Output Parameter: None								            	
+*		Output Parameter: Return 0,1 (0->Problem,1->Any problem)								            	
 *																			
 *	  	Description															
 *     		Delete the selected element										    
 *****************************************************************************/
-void CL_Delete(List *list,Element *element)
+int CL_Delete(List *list,Element *element)
 {
 	if (list==NULL||element==NULL)
 	{
-		exit(EXIT_FAILURE);
+		return 0;
 	}
 	element->previous->next = element->next;
 	element->next->previous = element->previous;
 	free(element);
 	list->CountElement--;
+
+	return 1;
 }
 /****************************************************************************
 * Function CL_DeleteList()																																
 *		Input Parameter: List *								            	
-*		Output Parameter: None								            	
+*		Output Parameter: Return 0,1 (0->Problem,1->Any problem)								            	
 *																		
 *	  	Description															
 *     		Delete a list														    
 ****************************************************************************/
-void CL_DeleteList(List *list)
+int CL_DeleteList(List *list)
 {
 	unsigned int i=0;
 	Element *deleteElement = list->first;
 
 	if (list == NULL)
 	{
-		exit(EXIT_FAILURE);
+		return 0;
 	}
 	for (i = 0; i < list->CountElement - 1; i++)
 	{
@@ -172,11 +180,13 @@ void CL_DeleteList(List *list)
 	}
 	free(list->first);
 	free(list);
+	return 1;
 }
 /****************************************************************************
 * Function CL_SelectElement()												
 *		Input Parameter: List * , Element *						            	
-*																			
+*		Output Parameter: Return 0,1 (0->Problem,1->Any problem)
+*																	
 *	  	Description															
 *			Select an element													
 *****************************************************************************/
@@ -184,7 +194,7 @@ Element *CL_SelectElement(List *list, int Number)
 {
 	if (list==NULL)
 	{
-		exit(EXIT_FAILURE);
+		return NULL;
 	}
 	unsigned int i;
 	Element *element = list->first;
@@ -200,16 +210,16 @@ Element *CL_SelectElement(List *list, int Number)
 /****************************************************************************
 * Function CL_MoveElement()													
 *		Input Parameter: Element * , Element *									
-*		Output Parameter: None								            	
+*		Output Parameter: Return 0,1 (0->Problem,1->Any problem)								            	
 *																			
 *	  	Description															
 *     		Move an element after the current element								
 *****************************************************************************/
-void CL_MoveElement(Element *move,Element *current)
+int CL_MoveElement(Element *move,Element *current)
 {
 	if (move ==NULL||current==NULL)
 	{
-		exit(EXIT_FAILURE);
+		return 0;
 	}
 	move->previous->next = move->next;
 	move->next->previous = move->previous;
@@ -220,50 +230,62 @@ void CL_MoveElement(Element *move,Element *current)
 	move->next = current->next;
 	current->next = move;
 	move->previous = current;
+
+	return 1;
 }
 /****************************************************************************
 * Function CL_SwapElement()												
 *		Input Parameter: Element *, Element *								
-*		Output Parameter: None								            	
+*		Output Parameter: Return 0,1 (0->Problem,1->Any problem)								            	
 *																			
 *	  	Description															
 *     		Swap two element														
 *****************************************************************************/
-void CL_SwapElement(Element *swap1, Element *swap2)
+int CL_SwapElement(Element *swap1, Element *swap2)
 {
 	if (swap1==NULL||swap2==NULL)
 	{
-		exit(EXIT_FAILURE);
+		return 0;
 	}
 	Element *swap1previous = swap1->previous;
 	CL_MoveElement(swap1, swap2);
 	CL_MoveElement(swap2, swap1previous);
+	return 1;
 }
 /****************************************************************************
 * Function CL_ConcatList()														
 *		Input Parameter: List *, List *						            		
-*		Output Parameter: None								            	
+*		Output Parameter: Return 0,1 (0->Problem,1->Any problem)								            	
 *																			
 *	  	Description															
 *     		Concat the second list into the first									
 ****************************************************************************/
-void CL_ConcatList(List *list1, List *list2)
+int CL_ConcatList(List *list1, List *list2)
 {
+	if (list1==NULL||list2==NULL)
+	{
+		return 0;
+	}
 	list1->last->next = list2->first;
 	list2->first->previous = list1->last;
 	list1->last = list2->first;
+	return 1;
 
 }
 /****************************************************************************
 * Function CL_TruncList()													
 *		Input Parameter: List *, Element *						            	
-*		Output Parameter: List								            	
+*		Output Parameter: List *, returns null if the allocation doesn't work								            	
 *																			
 *	  	Description															
 *     		Trunk a list															
 *****************************************************************************/
 List *CL_TruncList(List *list, Element *current)
 {
+	if (list==NULL||current==NULL)
+	{
+		return NULL;
+	}
 	List *newList = malloc(sizeof(List));
 	current->previous->next = NULL;
 	newList->last = list->last;
@@ -276,7 +298,7 @@ List *CL_TruncList(List *list, Element *current)
 /****************************************************************************
 * Function CL_InitList()													
 *		Input Parameter: None								            	
-*		Output Parameter: List *								            	
+*		Output Parameter: List *, returns null if the allocation doesn't work								            	
 *																			
 *	  	Description															
 *     		Initalize the list											        
@@ -287,7 +309,7 @@ List *CL_InitList()
 	Element *element = malloc(sizeof(Element));
 	if ((list == NULL) || (element == NULL))
 	{
-		exit(EXIT_FAILURE);
+		return NULL;
 	}
 	list->CountElement = 1;
 	element->next = NULL;

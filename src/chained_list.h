@@ -32,7 +32,7 @@ struct Element
 	Element *next;
 	Element *previous;
 };
-typedef struct List List;
+typedef struct Element Element;
 struct List
 {
 	int CountElement;
@@ -58,7 +58,7 @@ After
 |    new	|---|  Element	|---|  Element	|								
 |-----------|	|-----------|	|-----------|								
 ****************************************************************************/
-void CL_InsertFirst(List *list);
+Element *CL_InsertFirst(List *list);
 /****************************************************************************
 * Function CL_InsertLast()																	
 *		Input Parameter: List *								            	
@@ -77,7 +77,7 @@ After
 |  Element	|---|  Element	|---|    new	|								
 |-----------|	|-----------|	|-----------|								
 ****************************************************************************/
-void CL_InsertLast(List *list);
+Element *CL_InsertLast(List *list);
 /****************************************************************************
 * Function CL_Insert()																
 *		Input Parameter: List *, Element *					            	
@@ -96,7 +96,7 @@ After
 |  Element	|---|  Element	|---|    new	|---|  Element	|				
 |-----------|	|-----------|	|-----------|	|-----------|				
 ****************************************************************************/
-void CL_Insert(List *list, Element *current);
+Element *CL_Insert(List *list, Element *current);
 /****************************************************************************
 * Function CL_DeleteFirst()																
 *		Input Parameter: List *								            	
@@ -115,7 +115,7 @@ After
 | Element	|---|  Element	|												
 |-----------|	|-----------|												
 ****************************************************************************/
-void CL_DeleteFirst(List *list);
+int CL_DeleteFirst(List *list);
 /****************************************************************************
 * Function CL_DeleteLast()																	
 *		Input Parameter: List *								            	
@@ -134,7 +134,7 @@ After
 | Element	|---|  Element	|												
 |-----------|	|-----------|												
 ****************************************************************************/
-void CL_DeleteLast(List *list);
+int CL_DeleteLast(List *list);
 /****************************************************************************
 * Function CL_Delete()															
 *		Input Parameter: List *, Element *						            	
@@ -153,7 +153,7 @@ After
 | Element	|-------------------|  Element	|								
 |-----------|					|-----------|								
 ****************************************************************************/
-void CL_Delete(List *list,Element *current);
+int CL_Delete(List *list,Element *element);
 /****************************************************************************
 * Function CL_DeleteList()																																
 *		Input Parameter: List *								            	
@@ -162,7 +162,7 @@ void CL_Delete(List *list,Element *current);
 *	  	Description															
 *     		Delete a list														    
 ****************************************************************************/
-void CL_DeleteList(List *list);
+int CL_DeleteList(List *list);
 /****************************************************************************
 * Function CL_SelectElement()												
 *		Input Parameter: List * , Element *						            	
@@ -198,7 +198,7 @@ After
 |  Element	|---|  current	|---|   move	|								
 |-----------|	|-----------|	|-----------|																	
 ****************************************************************************/
-void CL_MoveElement(Element *move, Element *current);
+int CL_MoveElement(Element *move,Element *current);
 /****************************************************************************
 * Function CL_SwapElement()												
 *		Input Parameter: Element *, Element *								
@@ -217,7 +217,7 @@ After
 |  swap2	|---|  Element	|---|  swap1	|								
 |-----------|	|-----------|	|-----------|																
 ****************************************************************************/
-void CL_SwapElement(Element *swap1, Element *swap2);
+int CL_SwapElement(Element *swap1, Element *swap2);
 /****************************************************************************
 * Function CL_ConcatList()														
 *		Input Parameter: List *, List *						            		
@@ -226,7 +226,7 @@ void CL_SwapElement(Element *swap1, Element *swap2);
 *	  	Description															
 *     		Concat the second list into the first									
 ****************************************************************************/
-void CL_ConcatList(List *list1, List *list2);
+int CL_ConcatList(List *list1, List *list2);
 /****************************************************************************
 * Function CL_TruncList()													
 *		Input Parameter: List *, Element *						            	
