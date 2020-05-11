@@ -22,7 +22,7 @@
 ****************************************************************************/
 void FILO_Add(FILO *filo, int number)
 {
-	FILO_Element *newFilo = malloc(sizeof(*newFilo));
+	FILO_Element *newFilo = malloc(sizeof(FILO_Element));
 
 	if (filo == NULL || newFilo == NULL)
 	{

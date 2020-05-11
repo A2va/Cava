@@ -22,7 +22,7 @@
 ****************************************************************************/
 void LIFO_Add(LIFO *lifo,int number)
 {
-	LIFO_Element *newLifo = malloc(sizeof(*newLifo));
+	LIFO_Element *newLifo = malloc(sizeof(LIFO_Element));
 	if (lifo==NULL||newLifo==NULL)
 	{
 		exit(EXIT_FAILURE);

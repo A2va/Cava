@@ -11,17 +11,17 @@
 * DESCRIPTION															
 * 	  LIFO library								                        			
 ****************************************************************************/
-typedef struct LIFO_Element LIFO_Element;
 struct LIFO_Element
 {
 	int Data;
 	LIFO_Element *next;
 };
-typedef struct LIFO LIFO;
+typedef struct LIFO_Element LIFO_Element;
 struct LIFO
 {
 	LIFO_Element *first;
 };
+typedef struct LIFO LIFO;
 /****************************************************************************
 * Function LIFO_Add()																	
 *		Input Parameter: LIFO,Number								        
@@ -38,6 +38,6 @@ void LIFO_Add(LIFO *lifo, int number);
 *																			
 *	  	Description															
 *     		Remove the first elment of LIFO									    
-****************************************************************************//
+****************************************************************************/
 int LIFO_Remove(LIFO *lifo);
 #endif // !LIFO_H

@@ -24,7 +24,7 @@
 *****************************************************************************/
 void CL_InsertFirst(List *list)
 {
-	Element *newElement = malloc(sizeof(*newElement));
+	Element *newElement = malloc(sizeof(Element));
 	if (list == NULL || newElement == NULL)
 	{
 		exit(EXIT_FAILURE);
@@ -46,7 +46,7 @@ void CL_InsertFirst(List *list)
 *****************************************************************************/
 void CL_InsertLast(List *list)
 {
-	Element *newElement = malloc(sizeof(*newElement));
+	Element *newElement = malloc(sizeof(Element));
 	if (list == NULL || newElement == NULL)
 	{
 		exit(EXIT_FAILURE);
@@ -68,7 +68,7 @@ void CL_InsertLast(List *list)
 *****************************************************************************/
 void CL_Insert(List *list, Element *current)
 {
-	Element *newElement = malloc(sizeof(*newElement));
+	Element *newElement = malloc(sizeof(Element));
 	if (list == NULL || newElement == NULL || current == NULL)
 	{
 		exit(EXIT_FAILURE);
@@ -264,7 +264,7 @@ void CL_ConcatList(List *list1, List *list2)
 *****************************************************************************/
 List *CL_TruncList(List *list, Element *current)
 {
-	List *newList = malloc(sizeof(*list));
+	List *newList = malloc(sizeof(List));
 	current->previous->next = NULL;
 	newList->last = list->last;
 	list->last = current->previous;
@@ -284,7 +284,7 @@ List *CL_TruncList(List *list, Element *current)
 List *CL_InitList()
 {
 	List *list = malloc(sizeof(*list));
-	Element *element = malloc(sizeof(*element));
+	Element *element = malloc(sizeof(Element));
 	if ((list == NULL) || (element == NULL))
 	{
 		exit(EXIT_FAILURE);

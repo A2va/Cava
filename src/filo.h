@@ -11,17 +11,17 @@
 * DESCRIPTION																
 * 	  FILO	Library							                        			
 ****************************************************************************/
-typedef struct FILO_Element FILO_Element;
 struct FILO_Element
 {
 	int Data;
 	FILO_Element *next;
 };
-typedef struct FILO FILO;
+typedef struct FILO_Element FILO_Element;
 struct FILO
 {
 	FILO_Element *first;
 };
+typedef struct FILO FILO;
 /****************************************************************************
 * Function FILO_Add()																	
 *		Input Parameter: FILO * ,Number								        

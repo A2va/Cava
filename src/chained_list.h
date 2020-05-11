@@ -26,7 +26,6 @@ Element
 		|-----------|														
 																			
 ****************************************************************************/
-typedef struct Element Element;
 struct Element
 {
 	int Data;
@@ -40,6 +39,7 @@ struct List
 	Element *first;
 	Element *last;
 };
+typedef struct List List;
 /****************************************************************************
 * Function CL_InsertFirst()																
 *		Input Parameter: List *								            	
