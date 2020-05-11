@@ -15,7 +15,7 @@
 /****************************************************************************
 * Function LIFO_Add()																	
 *		Input Parameter: LIFO,Number								        
-*		Output Parameter: LIFO_Element *, returns null if the allocation doesn't work											        
+*		Output Parameter: LIFO_Element *, returns NULL if a problem has occurred											        
 *																			
 *	  	Description															
 *     		Add an element to LIFO											    
@@ -35,7 +35,7 @@ LIFO_Element *LIFO_Add(LIFO *lifo,int number)
 /****************************************************************************
 * Function LIFO_Remove()																		
 *		Input Parameter: LIFO												
-*		Output Parameter: Data Out										    
+*		Output Parameter: int,Data Out										    
 *																			
 *	  	Description															
 *     		Remove the first elment of LIFO									    

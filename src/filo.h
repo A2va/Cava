@@ -25,7 +25,7 @@ typedef struct FILO FILO;
 /****************************************************************************
 * Function FILO_Add()																	
 *		Input Parameter: FILO * ,Number								        
-*		Output Parameter: None										        
+*		Output Parameter: FILO_Element *, returns NULL if a problem has occurred										        
 *																			
 *	  	Description															
 *     		Add an element to FILO											    
@@ -34,7 +34,7 @@ FILO_Element *FILO_Add(FILO *filo, int number);
 /****************************************************************************
 * Function FILO_Remove()															
 *		Input Parameter: FILO *								            	
-*		Output Parameter: Data Out									        
+*		Output Parameter: int,Data Out									        
 *																			
 *	  	Description															
 *     		Remove an element to FILO											    
