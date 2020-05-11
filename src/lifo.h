@@ -30,7 +30,7 @@ typedef struct LIFO LIFO;
 *	  	Description															
 *     		Add an element to LIFO											    
 ****************************************************************************/
-void LIFO_Add(LIFO *lifo, int number);
+LIFO_Element *LIFO_Add(LIFO *lifo,int number);
 /****************************************************************************
 * Function LIFO_Remove()																		
 *		Input Parameter: LIFO												

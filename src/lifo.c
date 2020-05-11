@@ -15,21 +15,22 @@
 /****************************************************************************
 * Function LIFO_Add()																	
 *		Input Parameter: LIFO,Number								        
-*		Output Parameter: None										        
+*		Output Parameter: LIFO_Element *, returns null if the allocation doesn't work											        
 *																			
 *	  	Description															
 *     		Add an element to LIFO											    
 ****************************************************************************/
-void LIFO_Add(LIFO *lifo,int number)
+LIFO_Element *LIFO_Add(LIFO *lifo,int number)
 {
 	LIFO_Element *newLifo = malloc(sizeof(LIFO_Element));
 	if (lifo==NULL||newLifo==NULL)
 	{
-		exit(EXIT_FAILURE);
+		return NULL;
 	}
 	newLifo->Data = number;
 	newLifo->next = lifo->first;
 	lifo->first = newLifo;
+	return newLifo;
 }
 /****************************************************************************
 * Function LIFO_Remove()																		
