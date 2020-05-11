@@ -30,7 +30,7 @@ typedef struct FILO FILO;
 *	  	Description															
 *     		Add an element to FILO											    
 ****************************************************************************/
-void FILO_Add(FILO *filo, int number);
+FILO_Element *FILO_Add(FILO *filo, int number);
 /****************************************************************************
 * Function FILO_Remove()															
 *		Input Parameter: FILO *								            	

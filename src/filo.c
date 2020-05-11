@@ -15,18 +15,18 @@
 /****************************************************************************
 * Function FILO_Add()																	
 *		Input Parameter: FILO * ,Number								        
-*		Output Parameter: None										        
+*		Output Parameter: FILO_Element *, returns null if the allocation doesn't work										        
 *																			
 *	  	Description															
 *     		Add an element to FILO											    
 ****************************************************************************/
-void FILO_Add(FILO *filo, int number)
+FILO_Element *FILO_Add(FILO *filo, int number)
 {
 	FILO_Element *newFilo = malloc(sizeof(FILO_Element));
 
 	if (filo == NULL || newFilo == NULL)
 	{
-		exit(EXIT_FAILURE);
+		return NULL;
 	}
 	newFilo->Data = number;
 	newFilo->next = NULL;
@@ -43,6 +43,7 @@ void FILO_Add(FILO *filo, int number)
 	{
 		filo->first = newFilo;
 	}
+	return newFilo;
 }
 /****************************************************************************
 * Function FILO_Remove()															
