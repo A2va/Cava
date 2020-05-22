@@ -11,17 +11,17 @@
 * DESCRIPTION															
 * 	  LIFO library								                        			
 ****************************************************************************/
+typedef struct LIFO_Element LIFO_Element;
 struct LIFO_Element
 {
 	int Data;
 	LIFO_Element *next;
 };
-typedef struct LIFO_Element LIFO_Element;
+typedef struct LIFO LIFO;
 struct LIFO
 {
 	LIFO_Element *first;
 };
-typedef struct LIFO LIFO;
 /****************************************************************************
 * Function LIFO_Add()																	
 *		Input Parameter: LIFO,Number								        

@@ -26,20 +26,20 @@ Element
 		|-----------|														
 																			
 ****************************************************************************/
+typedef struct Element Element;
 struct Element
 {
 	int Data;
 	Element *next;
 	Element *previous;
 };
-typedef struct Element Element;
+typedef struct List List;
 struct List
 {
 	int CountElement;
 	Element *first;
 	Element *last;
 };
-typedef struct List List;
 /****************************************************************************
 * Function CL_InsertFirst()																
 *		Input Parameter: List *								            	
